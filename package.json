@@ -1,0 +1,30 @@
+{
+  "name": "pulse-server",
+  "version": "0.0.0",
+  "description": "Do great things, one accomplishment at a time",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Illinois-Founders/pulse.git"
+  },
+  "keywords": [
+    "pulse",
+    "server",
+    "todo",
+    "illinois",
+    "founders",
+    "entrepreneurship",
+    "task",
+    "management",
+    "accomplishment"
+  ],
+  "author": "Ben Ng (http://benng.me)",
+  "license": "GPL-v3",
+  "bugs": {
+    "url": "https://github.com/Illinois-Founders/pulse/issues"
+  },
+  "homepage": "https://github.com/Illinois-Founders/pulse"
+}
