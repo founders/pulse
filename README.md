@@ -5,6 +5,8 @@ Do great things, one accomplishment at a time.
 
 [![Build Status](https://travis-ci.org/Illinois-Founders/pulse.png)](https://travis-ci.org/Illinois-Founders/pulse)
 
+[See The Production App](https://pulse-il.jit.su)
+
 ## Vision
 
 A community that enables individuals to accomplish great things.
@@ -51,6 +53,10 @@ Or run the tests:
 ```sh
 $ node test.js
 ```
+
+## Deployment
+
+Deployment is automatic and happens whenever a push to the master branch does not break the build.
 
 ## License
 
