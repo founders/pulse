@@ -1,5 +1,5 @@
-Prototype
-=========
+Pulse
+=====
 
 Do great things, one accomplishment at a time.
 
@@ -9,7 +9,7 @@ A community that enables individuals to accomplish great things.
 
 ## Execution
 
-`Prototype` will be a single-page app centered around a chronological stream of accomplishments. Its primary purpose is to encourage people to accomplish small things. Its secondary purpose is to deter atrophy.
+`Pulse` will be a single-page app centered around a chronological stream of accomplishments. Its primary purpose is to encourage people to accomplish small things. Its secondary purpose is to deter atrophy.
 
 ### The Stick
 
