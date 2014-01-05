@@ -2,7 +2,7 @@
   "name": "pulse-server",
   "version": "0.0.0",
   "description": "Do great things, one accomplishment at a time",
-  "main": "lib/index.js",
+  "main": "server.js",
   "scripts": {
     "test": "node test.js"
   },
