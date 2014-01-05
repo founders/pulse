@@ -16,3 +16,6 @@ node_modules
 
 *.sublime-project
 *.sublime-workspace
+
+public/pulse.js
+public/pulse.css

@@ -3,6 +3,8 @@ Pulse
 
 Do great things, one accomplishment at a time.
 
+[![Build Status](https://travis-ci.org/Illinois-Founders/pulse.png)](https://travis-ci.org/Illinois-Founders/pulse)
+
 ## Vision
 
 A community that enables individuals to accomplish great things.
@@ -22,15 +24,33 @@ Accomplished users can bask in the praise of their peers and watch as they rise 
 ## Technical Details
 
 ### Back-end
+
  * Express 3
- * CouchDB
+ * mongodb
  * Socket.io
  * Nodejitsu
 
 ### Front-end
+
  * Handlebars
  * Browserify
  * Ribcage-UI
+
+## Contributing
+
+Set up and start developing:
+
+```sh
+$ npm install
+$ npm install nodemon -g
+$ nodemon app.js
+```
+
+Or run the tests:
+
+```sh
+$ node test.js
+```
 
 ## License
 

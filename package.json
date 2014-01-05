@@ -4,7 +4,7 @@
   "description": "Do great things, one accomplishment at a time",
   "main": "lib/index.js",
   "scripts": {
-    "test": "test.js"
+    "test": "node test.js"
   },
   "repository": {
     "type": "git",
@@ -21,10 +21,22 @@
     "management",
     "accomplishment"
   ],
+  "dependencies": {
+    "express": "3.4.7",
+    "mongoose": "~3.8.3",
+    "JSONStream": "~0.7.1",
+    "bcrypt": "~0.7.7",
+    "through": "~2.3.4"
+  },
   "author": "Ben Ng (http://benng.me)",
   "license": "GPL-v3",
   "bugs": {
     "url": "https://github.com/Illinois-Founders/pulse/issues"
   },
-  "homepage": "https://github.com/Illinois-Founders/pulse"
+  "homepage": "https://github.com/Illinois-Founders/pulse",
+  "devDependencies": {
+    "async": "~0.2.9",
+    "supertest": "~0.8.2",
+    "colors": "~0.6.2"
+  }
 }
