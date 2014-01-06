@@ -26,7 +26,7 @@ tests.push(function (done) {
       if(err)
         return done(err);
 
-      assert.equal(res.body.length, 1, 'There should be zero results (1 for the log)');
+      assert.equal(res.body.length, 0, 'There should be zero results');
 
       done();
     });
@@ -75,7 +75,7 @@ tests.push(function (done) {
       if(err)
         return done(err);
 
-      assert.equal(res.body.length, 2, 'There should be one result (+1 for the log)');
+      assert.equal(res.body.length, 1, 'There should be one result');
 
       assert.equal(res.body[0].text, 'I made the user tests succeed!'
         , 'Text should be about making tests succeed');
@@ -87,14 +87,6 @@ tests.push(function (done) {
         , 'First name should be Bobby');
       assert.equal(res.body[0].user.lastname, 'McTester'
         , 'Last name should be McTester');
-
-      assert.deepEqual(res.body[1]
-        , [
-            'Fetching from redis'
-          , 'Not found in redis, reading from mongo'
-          , 'Saving to redis & local cache'
-          ]
-        , 'The cache should have missed');
 
       done();
     });
@@ -111,7 +103,7 @@ tests.push(function (done) {
       if(err)
         return done(err);
 
-      assert.equal(res.body.length, 2, 'There should be one result (+1 for the log)');
+      assert.equal(res.body.length, 1, 'There should be one result');
 
       assert.equal(res.body[0].text, 'I made the user tests succeed!'
         , 'Text should be about making tests succeed');
@@ -123,14 +115,6 @@ tests.push(function (done) {
         , 'First name should be Bobby');
       assert.equal(res.body[0].user.lastname, 'McTester'
         , 'Last name should be McTester');
-
-
-      assert.deepEqual(res.body[1]
-        , [
-            'Fetching from redis'
-          , 'Found in redis'
-          ]
-        , 'The cache should have hit');
 
       done();
     });

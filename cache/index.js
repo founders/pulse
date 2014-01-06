@@ -11,6 +11,8 @@ client = redis.createClient(config.redis.port, config.redis.host);
 
 if(process.env.NODE_ENV == 'production') {
   client.auth(config.redis.host + ':' + config.redis.auth, function (err) {
+    console.log(arguments);
+
     if(err)
       throw err;
   });
