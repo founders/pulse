@@ -41,7 +41,7 @@ AuthPanel = Ribcage.extend({
       e.stopPropagation();
     }
 
-    var netid = this.$('.js-netid').val()
+    var netid = this.$('.js-netid').val().toLowerCase()
       , self = this;
 
     this.$('.js-netid-lookup').prop('disabled', true).text('Searching...');
