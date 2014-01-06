@@ -6,7 +6,7 @@ var http = require('http')
   , cleancss = require('clean-css')
   , app = require('./app')
   , server = http.createServer(app)
-  , io = require('socket.io').listen(server)
+  , io = require('socket.io').listen(server, {log: false})
   , socketioMiddleware = require('./middleware/socketio')
   , _ = require('lodash')
   , atomifyjs = require('atomify-js')
@@ -79,8 +79,6 @@ async.series([
     throw err;
   }
   else {
-    server.listen(app.get('port'), function(){
-      console.log('Express server listening on port ' + app.get('port'));
-    });
+    server.listen(app.get('port'));
   }
 });
