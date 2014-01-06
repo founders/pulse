@@ -13,7 +13,7 @@ var mongoose = require('mongoose')
     , email: {
         type: String
       , trim: true
-      , match: /^[a-zA-Z]{2,}@illinois.edu$/
+      , match: /^[a-zA-Z0-9]{2,}@illinois.edu$/
       }
     , hash: 'string'
     , salt: 'string'
