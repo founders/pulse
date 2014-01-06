@@ -49,7 +49,7 @@
     "ribcage-top-bar": "~0.0.6",
     "ribcage-back-button": "0.0.x",
     "jquery-browserify": "~1.8.1",
-    "illinois-directory": "git://github.com/ben-ng/illinois-directory.git#patch-1",
+    "illinois-directory": "~0.0.5",
     "socket.io-browserify": "~0.9.6",
     "uglify-js": "~2.4.8",
     "clean-css": "~2.0.6"
