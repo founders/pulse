@@ -27,16 +27,17 @@ Accomplished users can bask in the praise of their peers and watch as they rise 
 
 ### Back-end
 
- * Express 3
+ * express 3
  * mongodb
- * Socket.io
- * Nodejitsu
+ * socket.io
+ * nodejitsu
 
 ### Front-end
 
- * Handlebars
- * Browserify
- * Ribcage-UI
+ * handlebars
+ * browserify
+ * ribcage-ui
+ * topcoat
 
 ## Contributing
 
