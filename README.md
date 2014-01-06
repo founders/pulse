@@ -51,7 +51,7 @@ $ nodemon app.js
 Or run the tests:
 
 ```sh
-$ node test.js
+$ npm test
 ```
 
 ## Deployment
