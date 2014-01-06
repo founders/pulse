@@ -38,6 +38,7 @@ app.use(errorHandler);
 app.post('/login', users.auth);
 app.post('/logout', users.unauth);
 
+app.get('/whoami', users.whoami);
 app.get('/whois/:netid', users.whois);
 
 app.get('/users', users.list);

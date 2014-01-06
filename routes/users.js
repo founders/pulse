@@ -176,6 +176,26 @@ exports.unauth = function (req, res) {
   res.send({});
 };
 
+exports.whoami = function (req, res, next) {
+  if(!req.session.user_id) {
+    return res.send(403, {
+        error: 'Not authenticated'
+      });
+  }
+
+  User.findOne({_id: req.session.user_id}, function (err, data) {
+    if(err)
+      return next(err);
+
+    res.send({
+      id: data._id
+    , firstname: data.firstname
+    , lastname: data.lastname
+    , email: data.email
+    });
+  });
+};
+
 exports.whois = function (req, res, next) {
   if(!req.params.netid)
     return next(new Error('You must provide a NetID to look up'));

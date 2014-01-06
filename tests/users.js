@@ -112,6 +112,32 @@ tests.push(function (done) {
 });
 
 tests.push(function (done) {
+  console.log('Whoami?'.bold);
+
+  var req = request(app)
+    .get('/whoami');
+
+  req.cookies = CookieJar.jar;
+
+  req
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end(function (err, res) {
+      if(err)
+        return done(err);
+
+      assert.equal(res.body.id, UserId, 'Id should match saved value');
+      assert.equal(res.body.firstname, 'Bobby', 'First name should be Bobby');
+      assert.equal(res.body.lastname, 'McTester', 'Last name should be McTester');
+      assert.equal(res.body.email, 'bob@illinois.edu', 'Email should be bob@illinois.edu');
+      assert.strictEqual(res.body.salt, undefined, 'Salt should be undefined');
+      assert.strictEqual(res.body.hash, undefined, 'Hash should be undefined');
+
+      done();
+    });
+});
+
+tests.push(function (done) {
   console.log('View user when logged in'.bold);
 
   var req = request(app)
@@ -183,6 +209,28 @@ tests.push(function (done) {
       assert.deepEqual(res.body, {}, 'There should be an empty response');
 
       CookieJar.jar = res.headers['set-cookie'].pop().split(';')[0];
+
+      done();
+    });
+});
+
+tests.push(function (done) {
+  console.log('Whoami should be forbidden'.bold);
+
+  var req = request(app)
+    .get('/whoami');
+
+  req.cookies = CookieJar.jar;
+
+  req
+    .expect('Content-Type', /json/)
+    .expect(403)
+    .end(function (err, res) {
+      if(err)
+        return done(err);
+
+      assert.equal(res.body.error, 'Not authenticated'
+        , 'The error should be about not being authenticated');
 
       done();
     });
