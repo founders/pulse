@@ -34,8 +34,11 @@ AppWindow = Ribcage.extend({
     this.collection.fetch();
 
     socket.on('accomplishment', function (data) {
-      var accomplishment = new Accomplishment(data);
-      self.appendSubview(new AccomplishmentView({model: accomplishment}), self.$('.js-main-pane'));
+      var accomplishment = new Accomplishment(data)
+        , mainPane = self.$('.js-main-pane');
+
+      self.appendSubview(new AccomplishmentView({model: accomplishment}), mainPane);
+      mainPane.scrollTop(mainPane[0].scrollHeight);
     });
 
     $.ajax('/whoami', {
@@ -63,6 +66,8 @@ AppWindow = Ribcage.extend({
     });
 
     this.$('.js-entry-input').focus();
+
+    mainPane.scrollTop(mainPane[0].scrollHeight);
   }
 , sendComment: function () {
     this.$('.enter-hint').hide();

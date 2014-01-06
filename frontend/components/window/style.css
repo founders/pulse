@@ -8,10 +8,11 @@
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  height: 100%;
-  padding:0 0 var(entry-pane-height) 0;
+  bottom: 80px;
   z-index: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 .js-entry-pane,
@@ -90,7 +91,7 @@
 
 @media(max-width: 480px) {
   .js-main-pane {
-    padding:0 0 115px 0;
+    bottom: 115px;
   }
   .js-entry-pane,
   .js-entry-pane form,
