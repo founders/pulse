@@ -35,11 +35,11 @@ get = function (key, cb) {
   }
 };
 
-if(config.redis.auth)
-  client.auth(config.redis.auth);
-
 client.on('ready', function() {
   var temp;
+
+  if(process.env.NODE_ENV == 'production')
+    client.auth(config.redis.auth);
 
   // Possible for more tasks to be added while
   // processing the throttled queue
