@@ -317,3 +317,54 @@ tests.push(function (done) {
       done();
     });
 });
+
+tests.push(function (done) {
+  console.log('Whois Ben should get his details'.bold);
+
+  request(app)
+    .get('/whois/kbng2')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end(function (err, res) {
+      if(err)
+        return done(err);
+
+      assert.equal(res.body.firstname, 'Benjamin', 'First name should be Benjamin');
+      assert.equal(res.body.lastname, 'Ng', 'Last name should be Ng');
+
+      done();
+    });
+});
+
+tests.push(function (done) {
+  console.log('Whois John should get his details'.bold);
+
+  request(app)
+    .get('/whois/quarton')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end(function (err, res) {
+      if(err)
+        return done(err);
+
+      assert.equal(res.body.firstname, 'John', 'First name should be John');
+      assert.equal(res.body.lastname, 'Quarton', 'Last name should be Quarton');
+
+      done();
+    });
+});
+
+tests.push(function (done) {
+  console.log('Whois a bogus user should fail'.bold);
+
+  request(app)
+    .get('/whois/bogusStudent9')
+    .expect('Content-Type', /json/)
+    .expect(404)
+    .end(function (err, res) {
+      if(err)
+        return done(err);
+
+      done();
+    });
+});

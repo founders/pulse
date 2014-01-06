@@ -37,6 +37,8 @@ app.use(express.errorHandler());
 app.post('/login', users.auth);
 app.post('/logout', users.unauth);
 
+app.get('/whois/:netid', users.whois);
+
 app.get('/users', users.list);
 app.post('/users', users.create);
 app.get('/users/:id', users.view);

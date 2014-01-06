@@ -1,7 +1,8 @@
 var User = require('../db').models.User
   , JSONStream = require('JSONStream')
   , through = require('through')
-  , bcrypt = require('bcrypt');
+  , bcrypt = require('bcrypt')
+  , ildir = require('illinois-directory');
 
 exports.list = function (req, res) {
   var stream = User
@@ -136,4 +137,16 @@ exports.auth = function (req, res, next) {
 exports.unauth = function (req, res) {
   req.session = null;
   res.send({});
+};
+
+exports.whois = function (req, res, next) {
+  if(!req.params.netid)
+    return next(new Error('You must provide a NetID to look up'));
+
+  ildir(req.params.netid, function (err, details) {
+    if(err)
+      return res.send(404, {error: 'The netID could not be found'});
+
+    res.send(details);
+  });
 };
