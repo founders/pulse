@@ -3,7 +3,7 @@ var tests = []
   , request = require('supertest')
   , app = require('../app')
   , assert = require('assert')
-  , CookieJar = require('./CookieJar')
+  , CookieJar = require('./cookieJar')
   , AccomplishmentId
   , UserId;
 
