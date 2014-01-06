@@ -17,7 +17,7 @@ var express = require('express')
 // all environments
 app.set('port', process.env.PORT || 4000);
 app.use(express.favicon());
-app.use(express.logger('tiny'));
+app.use(express.logger(process.env.NODE_ENV == 'production' ? 'default' : 'tiny'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.cookieParser());
