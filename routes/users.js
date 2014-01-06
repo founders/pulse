@@ -3,15 +3,11 @@ var User = require('../db').models.User
   , through = require('through')
   , bcrypt = require('bcrypt');
 
-exports.list = function (req, res, next) {
+exports.list = function (req, res) {
   var stream = User
     .find({})
     .select('firstname lastname email')
     .stream();
-
-  stream.on('error', function (err) {
-    next(err);
-  });
 
   res.setHeader('Content-Type', 'application/json');
   stream

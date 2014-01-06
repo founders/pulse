@@ -3,7 +3,7 @@ var tests = []
   , request = require('supertest')
   , app = require('../app')
   , assert = require('assert')
-  , CookieJar
+  , CookieJar = require('./CookieJar')
   , UserId
   , AltUserId;
 
@@ -58,7 +58,7 @@ tests.push(function (done) {
       assert.strictEqual(res.body.salt, undefined, 'Salt should be undefined');
       assert.strictEqual(res.body.hash, undefined, 'Hash should be undefined');
 
-      CookieJar = res.headers['set-cookie'].pop().split(';')[0];
+      CookieJar.jar = res.headers['set-cookie'].pop().split(';')[0];
 
       done();
     });
@@ -70,7 +70,7 @@ tests.push(function (done) {
   var req = request(app)
     .get('/users/' + UserId);
 
-  req.cookies = CookieJar;
+  req.cookies = CookieJar.jar;
 
   req
     .expect('Content-Type', /json/)
@@ -96,7 +96,7 @@ tests.push(function (done) {
   var req = request(app)
     .get('/users');
 
-  req.cookies = CookieJar;
+  req.cookies = CookieJar.jar;
 
   req
     .expect('Content-Type', /json/)
@@ -124,7 +124,7 @@ tests.push(function (done) {
   var req = request(app)
     .post('/logout');
 
-  req.cookies = CookieJar;
+  req.cookies = CookieJar.jar;
 
   req
     .expect('Content-Type', /json/)
@@ -135,7 +135,7 @@ tests.push(function (done) {
 
       assert.deepEqual(res.body, {}, 'There should be an empty response');
 
-      CookieJar = res.headers['set-cookie'].pop().split(';')[0];
+      CookieJar.jar = res.headers['set-cookie'].pop().split(';')[0];
 
       done();
     });
@@ -147,7 +147,7 @@ tests.push(function (done) {
   var req = request(app)
     .get('/users/' + UserId);
 
-  req.cookies = CookieJar;
+  req.cookies = CookieJar.jar;
 
   req
     .expect('Content-Type', /json/)
@@ -229,7 +229,7 @@ tests.push(function (done) {
       assert.strictEqual(res.body.salt, undefined, 'Salt should be undefined');
       assert.strictEqual(res.body.hash, undefined, 'Hash should be undefined');
 
-      CookieJar = res.headers['set-cookie'].pop().split(';')[0];
+      CookieJar.jar = res.headers['set-cookie'].pop().split(';')[0];
 
       done();
     });
@@ -241,7 +241,7 @@ tests.push(function (done) {
   var req = request(app)
     .get('/users/' + UserId);
 
-  req.cookies = CookieJar;
+  req.cookies = CookieJar.jar;
 
   req
     .expect('Content-Type', /json/)
@@ -299,7 +299,7 @@ tests.push(function (done) {
   var req = request(app)
     .get('/users/' + AltUserId);
 
-  req.cookies = CookieJar;
+  req.cookies = CookieJar.jar;
 
   req
     .expect('Content-Type', /json/)

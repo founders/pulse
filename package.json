@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "node test.js"
+    "test": "export NODE_ENV=testing && node test.js"
   },
   "repository": {
     "type": "git",
@@ -32,7 +32,8 @@
     "JSONStream": "~0.7.1",
     "bcrypt": "~0.7.7",
     "async": "~0.2.9",
-    "through": "~2.3.4"
+    "through": "~2.3.4",
+    "iris-redis": "~0.1.0"
   },
   "author": "Ben Ng (http://benng.me)",
   "license": "GPL-v3",
@@ -42,6 +43,7 @@
   "homepage": "https://github.com/Illinois-Founders/pulse",
   "devDependencies": {
     "supertest": "~0.8.2",
-    "colors": "~0.6.2"
+    "colors": "~0.6.2",
+    "redis": "~0.10.0"
   }
 }
