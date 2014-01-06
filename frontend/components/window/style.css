@@ -105,10 +105,18 @@
   }
 
   .js-register-overlay h2 {
-    margin: 45px 0 0 10px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 1.3em;
+    line-height: 20px;
+    margin: 0;
+    float: none;
   }
 
-  .js-register-overlay form {
-    margin: 35px 10px 0 0;
+  .js-register-overlay .js-join {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
   }
 }
