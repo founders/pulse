@@ -1,3 +1,19 @@
+:root {
+  var-entry-pane-height: 80px;
+  var-entry-form-height: 50px;  /* pane-height - 30px */
+}
+
+.js-main-pane {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  padding:0 0 var(entry-pane-height) 0;
+  z-index: 0;
+}
+
 .js-entry-pane {
   position: absolute;
   bottom: 0;
@@ -5,10 +21,11 @@
   right: 0;
   height: 80px;
   padding: 0 5px;
+  z-index: 1;
 }
 
 .js-entry-pane form {
-  height: 50px;
+  bottom: var(entry-form-height);
 }
 
 .js-entry-pane .js-entry-input {
@@ -16,7 +33,7 @@
   top: 5px;
   left: 5px;
   right: 5px;
-  height: 50px;
+  bottom: var(entry-form-height);
 }
 
 .js-entry-pane .enter-hint {
