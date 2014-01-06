@@ -51,7 +51,8 @@
     "jquery-browserify": "~1.8.1",
     "illinois-directory": "git://github.com/ben-ng/illinois-directory.git#patch-1",
     "socket.io-browserify": "~0.9.6",
-    "uglify-js": "~2.4.8"
+    "uglify-js": "~2.4.8",
+    "clean-css": "~2.0.6"
   },
   "author": "Ben Ng (http://benng.me)",
   "license": "GPL-v3",

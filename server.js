@@ -3,6 +3,7 @@ var http = require('http')
   , fs = require('fs')
   , async = require('async')
   , uglify = require('uglify-js')
+  , cleancss = require('clean-css')
   , app = require('./app')
   , server = http.createServer(app)
   , io = require('socket.io').listen(server)
@@ -59,6 +60,11 @@ async.series([
     }, function (err, src) {
       if(err)
         return next(err);
+
+      if(process.env.NODE_ENV == 'production')
+        src = cleancss({
+          keepSpecialComments: false
+        }).minify(src);
 
       fs.writeFile(path.join(__dirname, 'public', 'pulse.css'), src, function (err) {
         if(err)
