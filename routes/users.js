@@ -40,7 +40,7 @@ exports.create = function (req, res, next) {
 
   async.series([
     function (then) {
-      User.findOne({email: req.body.email}, function (err, data) {
+      User.findOne({email: req.body.email.toLowerCase()}, function (err, data) {
         if(err)
           return then(err);
 
@@ -72,7 +72,7 @@ exports.create = function (req, res, next) {
       User.create({
         firstname: req.body.firstname
       , lastname: req.body.lastname
-      , email: req.body.email
+      , email: req.body.email.toLowerCase()
       , hash: hash
       , salt: salt
       , validationCode: code
@@ -206,7 +206,7 @@ exports.whois = function (req, res, next) {
   if(!req.params.netid)
     return next(new Error('You must provide a NetID to look up'));
 
-  User.findOne({email: req.params.netid + '@illinois.edu'}, function (err, data) {
+  User.findOne({email: req.params.netid.toLowerCase() + '@illinois.edu'}, function (err, data) {
     if(err)
       return next(err);
 
