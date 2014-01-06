@@ -41,12 +41,14 @@ Accomplished users can bask in the praise of their peers and watch as they rise 
 
 ## Contributing
 
-Set up and start developing:
+**You'll need mongodb installed locally.**
+
+Start a development server:
 
 ```sh
 $ npm install
 $ npm install nodemon -g
-$ nodemon app.js
+$ nodemon server.js
 ```
 
 Or run the tests:
