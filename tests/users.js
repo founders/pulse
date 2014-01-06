@@ -414,6 +414,25 @@ tests.push(function (done) {
 });
 
 tests.push(function (done) {
+  console.log('Whois Created User should get his details'.bold);
+
+  request(app)
+    .get('/whois/bob')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end(function (err, res) {
+      if(err)
+        return done(err);
+
+      assert.equal(res.body.id, UserId, 'Id should match saved value');
+      assert.equal(res.body.firstname, 'Bobby', 'First name should be Bobby');
+      assert.equal(res.body.lastname, 'McTester', 'Last name should be McTester');
+
+      done();
+    });
+});
+
+tests.push(function (done) {
   console.log('Whois Ben should get his details'.bold);
 
   request(app)
@@ -426,6 +445,7 @@ tests.push(function (done) {
 
       assert.equal(res.body.firstname, 'Benjamin', 'First name should be Benjamin');
       assert.equal(res.body.lastname, 'Ng', 'Last name should be Ng');
+      assert.strictEqual(res.body.id, undefined, 'Should not be registered');
 
       done();
     });
@@ -444,6 +464,7 @@ tests.push(function (done) {
 
       assert.equal(res.body.firstname, 'John', 'First name should be John');
       assert.equal(res.body.lastname, 'Quarton', 'Last name should be Quarton');
+      assert.strictEqual(res.body.id, undefined, 'Should not be registered');
 
       done();
     });
