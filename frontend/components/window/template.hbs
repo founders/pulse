@@ -8,3 +8,11 @@
   </form>
   <div class="enter-hint">Press "Enter" to comment, or "Shift+Enter" to share an accomplishment</div>
 </div>
+{{#unless authenticated}}
+<div class="js-register-overlay">
+  <h2>Get Things Done With Us!</h2>
+  <form action="#">
+    <submit class="topcoat-button js-join" >Sign In</submit>
+  </form>
+</div>
+{{/unless}}

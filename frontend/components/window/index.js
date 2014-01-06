@@ -4,11 +4,13 @@
 * The main application window
 */
 var Ribcage = require('ribcage-view')
+  , User = require('../../models/user')
   , Accomplishment = require('../../models/accomplishment')
   , Accomplishments = require('../../collections/accomplishments')
   , AccomplishmentView = require('../accomplishment')
   , AppWindow
-  , io = require('socket.io-browserify');
+  , io = require('socket.io-browserify')
+  , $ = require('jquery-browserify');
 
 AppWindow = Ribcage.extend({
   template: require('./template.hbs')
@@ -16,9 +18,12 @@ AppWindow = Ribcage.extend({
 , events: {
     'click .js-comment': 'sendComment'
   , 'click .js-accomplish': 'sendAccomplishment'
+  , 'click .js-join': 'joinUs'
   , 'keyup .js-entry-input': 'handleFormKeyup'
   , 'submit form': 'noop'
   }
+, authenticated: false
+, user: null
 , afterInit: function () {
     var self = this
       , socket = io.connect('/');
@@ -31,6 +36,19 @@ AppWindow = Ribcage.extend({
     socket.on('accomplishment', function (data) {
       var accomplishment = new Accomplishment(data);
       self.appendSubview(new AccomplishmentView({model: accomplishment}), self.$('.js-main-pane'));
+    });
+
+    $.ajax('/whoami', {
+      dataType: 'json'
+    , statusCode: {
+        200: function (data) {
+          self.authenticated = true;
+          self.user = new User(data);
+        }
+      }
+    , complete: function () {
+        self.render();
+      }
     });
   }
 , afterRender: function () {
@@ -53,6 +71,9 @@ AppWindow = Ribcage.extend({
 
     newAccomplishment.save();
   }
+, joinUs: function () {
+    App.navigate('/authenticate', {trigger: true});
+  }
 , handleFormKeyup: function (e) {
     if (event.keyCode == 13) {
       if(event.shiftKey)
@@ -70,6 +91,12 @@ AppWindow = Ribcage.extend({
       e.preventDefault();
       e.stopPropagation();
     }
+  }
+, context: function () {
+    return {
+      authenticated: this.authenticated
+    , user: this.user ? this.user.toJSON() : {}
+    };
   }
 });
 

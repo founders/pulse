@@ -187,6 +187,9 @@ exports.whoami = function (req, res, next) {
     if(err)
       return next(err);
 
+    if(!data)
+      return res.send(404, new Error('No such user'));
+
     res.send({
       id: data._id
     , firstname: data.firstname

@@ -14,7 +14,8 @@
   z-index: 0;
 }
 
-.js-entry-pane {
+.js-entry-pane,
+.js-register-overlay {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -22,6 +23,23 @@
   height: 80px;
   padding: 0 5px;
   z-index: 1;
+}
+
+.js-register-overlay {
+  z-index: 2;
+  background-color: #000;
+}
+
+.js-register-overlay h2 {
+  color: #FFF;
+  float: left;
+  margin: 25px 0 0 10px;
+}
+
+.js-register-overlay form {
+  display: block;
+  float: right;
+  margin: 15px 10px 0 0;
 }
 
 .js-entry-pane form {
@@ -63,7 +81,8 @@
     padding:0 0 115px 0;
   }
   .js-entry-pane,
-  .js-entry-pane form {
+  .js-entry-pane form,
+  .js-register-overlay {
     height: 115px;
   }
 
@@ -83,5 +102,13 @@
   .js-entry-pane .enter-hint {
     display: none;
     visibility: hidden;
+  }
+
+  .js-register-overlay h2 {
+    margin: 45px 0 0 10px;
+  }
+
+  .js-register-overlay form {
+    margin: 35px 10px 0 0;
   }
 }
