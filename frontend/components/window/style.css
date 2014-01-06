@@ -67,6 +67,7 @@
 }
 
 .js-entry-pane .enter-hint,
+.js-entry-pane .incomplete-hint,
 .js-entry-pane .invalid-hint {
   position: absolute;
   color: #333;
@@ -77,6 +78,7 @@
   padding: 0 2px;
 }
 
+.js-entry-pane .incomplete-hint,
 .js-entry-pane .invalid-hint {
   color: #ec514e;
   font-weight: bold;
@@ -110,6 +112,7 @@
   }
 
   .js-entry-pane .enter-hint,
+  .js-entry-pane .incomplete-hint,
   .js-entry-pane .invalid-hint {
     display: none;
     visibility: hidden;

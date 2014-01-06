@@ -56,6 +56,7 @@ AppWindow = Ribcage.extend({
       , mainPane = this.$('.js-main-pane');
 
     this.$('.invalid-hint').hide();
+    this.$('.incomplete-hint').hide();
 
     this.collection.each(function (accomplishment) {
       self.appendSubview(new AccomplishmentView({model: accomplishment}), mainPane);
@@ -64,7 +65,9 @@ AppWindow = Ribcage.extend({
     this.$('.js-entry-input').focus();
   }
 , sendComment: function () {
-    alert('Not implemented yet ):');
+    this.$('.enter-hint').hide();
+    this.$('.invalid-hint').hide();
+    this.$('.incomplete-hint').show();
   }
 , sendAccomplishment: function () {
     var self = this
@@ -75,6 +78,7 @@ AppWindow = Ribcage.extend({
     newAccomplishment.on('error', function () {
       self.$('.enter-hint').hide();
       self.$('.invalid-hint').show();
+      self.$('.incomplete-hint').hide();
 
       self.$('.js-entry-input').addClass('invalid').focus();
     });
@@ -83,6 +87,7 @@ AppWindow = Ribcage.extend({
       success: function () {
         self.$('.enter-hint').show();
         self.$('.invalid-hint').hide();
+        self.$('.incomplete-hint').hide();
         self.$('.js-entry-input').removeClass('invalid').val('').focus();
       }
     });
