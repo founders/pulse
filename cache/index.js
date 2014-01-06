@@ -1,4 +1,4 @@
-var redis = process.env.NODE_ENV == 'production' ? require('iris-redis') : require('redis')
+var redis = require('redis')
   , async = require('async')
   , config = require('../config')
   , client = redis.createClient(config.redis.port, config.redis.host)
@@ -6,6 +6,9 @@ var redis = process.env.NODE_ENV == 'production' ? require('iris-redis') : requi
   , throttled = []
   , set
   , get;
+
+if(process.env.NODE_ENV == 'production')
+  client.auth(config.redis.host + ':' + config.redis.auth);
 
 set = function (key, value, cb) {
   if(ready) {
@@ -37,9 +40,6 @@ get = function (key, cb) {
 
 client.on('ready', function() {
   var temp;
-
-  if(process.env.NODE_ENV == 'production')
-    client.auth(config.redis.auth);
 
   // Possible for more tasks to be added while
   // processing the throttled queue
