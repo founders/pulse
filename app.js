@@ -10,6 +10,7 @@ var express = require('express')
   , accomplishments = require('./routes/accomplishments')
   , comments = require('./routes/comments')
   , reset = require('./routes/reset')
+  , socketio = require('./middleware/socketio')
   , app = express();
 
 // all environments
@@ -18,12 +19,12 @@ app.use(express.favicon());
 app.use(express.logger('tiny'));
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(express.methodOverride());
 app.use(express.cookieParser());
 app.use(express.cookieSession({
   secret: config.session.secret
 , cookie: { maxAge: 60 * 60 * 1000 }
 }));
+app.use(socketio.middleware);
 
 if(process.env.NODE_ENV == 'production')
   app.use(express.csrf());

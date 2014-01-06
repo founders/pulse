@@ -34,7 +34,8 @@
     "async": "~0.2.9",
     "through": "~2.3.4",
     "redis": "~0.10.0",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "socket.io": "~0.9.16"
   },
   "author": "Ben Ng (http://benng.me)",
   "license": "GPL-v3",
