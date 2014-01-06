@@ -13,8 +13,12 @@ exports.list = function(req, res, next){
       if(accomplishments.length === 0)
         return res.send([]);
 
-      var uniqueUsers = _.uniq(_.map(accomplishments, function (a) {return a.user_id;}))
-        , orCond = _.map(uniqueUsers, function (u) {return {_id: u};});
+      // Construct the $or condition
+      var orCond = _(accomplishments)
+        .pluck('user_id')
+        .uniq()
+        .map(function (u) {return {_id: u};})
+        .value();
 
       User
         .find({$or: orCond})
