@@ -6,6 +6,8 @@ exports.list = function(req, res, next){
   Accomplishment
     .find({})
     .select('text user_id')
+    .limit(50)
+    .sort('-updated')
     .exec(function (err, accomplishments) {
       if(err)
         return next(err);
@@ -41,6 +43,7 @@ exports.list = function(req, res, next){
           return {
             id: a._id
           , text: a.text
+          , updated: a.updated
           , user: userMap[a.user_id]
           };
         }));
@@ -77,6 +80,7 @@ exports.create = function(req, res, next){
           id: data._id
         , text: data.text
         , user_id: data.user_id
+        , updated: data.updated
         };
 
         res.send(dat);

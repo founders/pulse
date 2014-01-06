@@ -1,7 +1,12 @@
 var mongoose = require('mongoose')
   , schema = new mongoose.Schema({
-      text: 'string'
+      text: {
+        type: String
+      , trim: true
+      , match: /^.{10,500}$/
+      }
     , user_id: 'string'
+    , updated: { type: Date, default: Date.now }
     })
   , Accomplishment = mongoose.model('Accomplishment', schema);
 
