@@ -8,7 +8,7 @@ var redis = require('redis')
   , get;
 
 if(process.env.NODE_ENV == 'production')
-  client.auth(config.redis.host + ':' + config.redis.auth);
+  client.auth(config.redis.auth);
 
 set = function (key, value, cb) {
   if(ready) {
