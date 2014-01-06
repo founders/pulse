@@ -1,20 +1,31 @@
 <div class="top-bar-holder">
 </div>
 {{#if details}}
-<div class="js-reg-form pulse-padded">
-  <form action="#">
-    <label for="password">Password</label>
-    <input type="password" class="topcoat-text-input js-password" name="password" value="{{details.password}}" />
+  {{#if details.id}}
+    <div class="js-login-form pulse-padded">
+      <form action="#">
+        <label for="password">Password</label>
+        <input type="password" class="topcoat-text-input js-password" name="password" value="{{details.password}}" />
 
-    <label for="firstname">First Name</label>
-    <input type="text" class="topcoat-text-input js-firstname" name="firstname" value="{{details.firstname}}" />
+        <submit class="topcoat-button--cta js-login">Sign In</submit>
+      </form>
+    </div>
+  {{else}}
+    <div class="js-reg-form pulse-padded">
+      <form action="#">
+        <label for="password">Password</label>
+        <input type="password" class="topcoat-text-input js-password" name="password" value="{{details.password}}" />
 
-    <label for="lastname">Last Name</label>
-    <input type="text" class="topcoat-text-input js-lastname" name="lastname" value="{{details.lastname}}" />
+        <label for="firstname">First Name</label>
+        <input type="text" class="topcoat-text-input js-firstname" name="firstname" value="{{details.firstname}}" />
 
-    <submit class="topcoat-button--cta js-reg">Join Us</submit>
-  </form>
-</div>
+        <label for="lastname">Last Name</label>
+        <input type="text" class="topcoat-text-input js-lastname" name="lastname" value="{{details.lastname}}" />
+
+        <submit class="topcoat-button--cta js-reg">Join Us</submit>
+      </form>
+    </div>
+  {{/if}}
 {{else}}
 <div class="js-netid-form pulse-padded">
   <form action="#">

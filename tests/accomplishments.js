@@ -56,6 +56,7 @@ tests.push(function (done) {
         , 'Text should be about making tests succeed');
       assert.notEqual(res.body.id, null, 'ID should not be null');
       assert.notEqual(res.body.user_id, null, 'User ID should not be null');
+      assert.ok(res.body.updated, 'Updated should not be null');
 
       AccomplishmentId = res.body.id;
       UserId = res.body.user_id;
@@ -87,6 +88,7 @@ tests.push(function (done) {
         , 'First name should be Bobby');
       assert.equal(res.body[0].user.lastname, 'McTester'
         , 'Last name should be McTester');
+      assert.ok(res.body[0].updated, 'Updated should not be null');
 
       done();
     });
@@ -115,6 +117,7 @@ tests.push(function (done) {
         , 'First name should be Bobby');
       assert.equal(res.body[0].user.lastname, 'McTester'
         , 'Last name should be McTester');
+      assert.ok(res.body[0].updated, 'Updated should not be null');
 
       done();
     });

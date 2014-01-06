@@ -55,21 +55,37 @@ AppWindow = Ribcage.extend({
     var self = this
       , mainPane = this.$('.js-main-pane');
 
+    this.$('.invalid-hint').hide();
+
     this.collection.each(function (accomplishment) {
       self.appendSubview(new AccomplishmentView({model: accomplishment}), mainPane);
     });
+
+    this.$('.js-entry-input').focus();
   }
 , sendComment: function () {
     alert('Not implemented yet ):');
   }
 , sendAccomplishment: function () {
-    var newAccomplishment = new Accomplishment({
-      text: this.$('.js-entry-input').val()
+    var self = this
+      , newAccomplishment = new Accomplishment({
+          text: this.$('.js-entry-input').val()
+        });
+
+    newAccomplishment.on('error', function () {
+      self.$('.enter-hint').hide();
+      self.$('.invalid-hint').show();
+
+      self.$('.js-entry-input').addClass('invalid').focus();
     });
 
-    newAccomplishment.on('error', App.handleError);
-
-    newAccomplishment.save();
+    newAccomplishment.save({}, {
+      success: function () {
+        self.$('.enter-hint').show();
+        self.$('.invalid-hint').hide();
+        self.$('.js-entry-input').removeClass('invalid').val('').focus();
+      }
+    });
   }
 , joinUs: function () {
     App.navigate('/authenticate', {trigger: true});

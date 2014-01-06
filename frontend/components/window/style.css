@@ -66,7 +66,8 @@
   right: 140px;
 }
 
-.js-entry-pane .enter-hint {
+.js-entry-pane .enter-hint,
+.js-entry-pane .invalid-hint {
   position: absolute;
   color: #333;
   font-size: .8em;
@@ -74,6 +75,15 @@
   height: 20px;
   line-height: 20px;
   padding: 0 2px;
+}
+
+.js-entry-pane .invalid-hint {
+  color: #ec514e;
+  font-weight: bold;
+}
+
+.js-entry-pane input.invalid {
+  border: 1px solid #ec514e;
 }
 
 @media(max-width: 480px) {
@@ -99,7 +109,8 @@
     right: 140px;
   }
 
-  .js-entry-pane .enter-hint {
+  .js-entry-pane .enter-hint,
+  .js-entry-pane .invalid-hint {
     display: none;
     visibility: hidden;
   }

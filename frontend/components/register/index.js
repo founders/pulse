@@ -18,6 +18,8 @@ AuthPanel = Ribcage.extend({
   , 'click .js-netid-lookup': 'lookupNetid'
   , 'submit .js-reg-form form': 'registerUser'
   , 'click .js-reg': 'registerUser'
+  , 'submit .js-login-form form': 'loginUser'
+  , 'click .js-login': 'loginUser'
   , 'click .js-cancel': 'cancelAuth'
   }
 , afterRender: function () {
@@ -30,6 +32,8 @@ AuthPanel = Ribcage.extend({
 
     topBar.setLeftButton(back);
     this.appendSubview(topBar, this.$('.top-bar-holder'));
+
+    this.$('.js-netid').focus();
   }
 , lookupNetid: function (e) {
     if(e) {
@@ -67,7 +71,8 @@ AuthPanel = Ribcage.extend({
     });
   }
 , registerUser: function (e) {
-    var newUser;
+    var newUser
+      , self = this;
 
     if(e) {
       e.preventDefault();
@@ -86,7 +91,7 @@ AuthPanel = Ribcage.extend({
     newUser.on('error', function () {
       App.handleError.apply(App, arguments);
 
-      this.$('.js-reg').prop('disabled', true).text('Join Us');
+      self.$('.js-reg').prop('disabled', false).text('Join Us');
     });
 
     newUser.on('sync', function () {
@@ -94,6 +99,34 @@ AuthPanel = Ribcage.extend({
     });
 
     newUser.save();
+  }
+, loginUser: function (e) {
+    var self = this;
+
+    if(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    this.$('.js-login').prop('disabled', true).text('Authenticating...');
+
+    $.ajax('/login', {
+      type: 'POST'
+    , data: {
+        email: this.netid + '@illinois.edu'
+      , password: this.$('.js-password').val()
+      }
+    , dataType: 'json'
+    , statusCode: {
+        200: function () {
+          App.navigate('', {trigger: true});
+        }
+      , 403: function () {
+          self.$('.js-password').addClass('invalid');
+          self.$('.js-login').prop('disabled', false).text('Sign In');
+        }
+      }
+    });
   }
 , context: function () {
     return {

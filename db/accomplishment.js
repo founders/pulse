@@ -3,9 +3,13 @@ var mongoose = require('mongoose')
       text: {
         type: String
       , trim: true
+      , required: true
       , match: /^.{10,500}$/
       }
-    , user_id: 'string'
+    , user_id: {
+        type: String
+      , required: true
+      }
     , updated: { type: Date, default: Date.now }
     })
   , Accomplishment = mongoose.model('Accomplishment', schema);

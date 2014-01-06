@@ -67,12 +67,15 @@ exports.create = function (req, res, next) {
       });
     }
   , function (then) {
+      var code = Math.round(Math.random() * 100000000) + '';
+
       User.create({
         firstname: req.body.firstname
       , lastname: req.body.lastname
       , email: req.body.email
       , hash: hash
       , salt: salt
+      , validationCode: code
       }, function (err, data) {
         if(err)
           return then(err);

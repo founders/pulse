@@ -5,7 +5,7 @@ var Accomplishment = require('../db').models.Accomplishment
 exports.list = function(req, res, next){
   Accomplishment
     .find({})
-    .select('text user_id')
+    .select('text user_id updated')
     .limit(50)
     .sort('-updated')
     .exec(function (err, accomplishments) {
