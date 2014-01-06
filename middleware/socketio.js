@@ -7,7 +7,7 @@
 */
 
 var socketioMiddleware
-  , exported;
+  , exported = {};
 
 socketioMiddleware = function (req, res, next) {
   if(!exported.references && process.env.NODE_ENV != 'testing')
@@ -17,9 +17,7 @@ socketioMiddleware = function (req, res, next) {
   next();
 };
 
-exported = {
-  middleware: socketioMiddleware
-, references: null
-};
+exported.middleware = socketioMiddleware;
+exported.references = null;
 
 module.exports = exported;
