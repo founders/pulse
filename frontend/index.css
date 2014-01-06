@@ -1,7 +1,6 @@
 @import "./topcoat/topcoat-mobile-light.css";
 @import "ribcage-top-bar";
 @import "ribcage-back-button";
-@import "ribcage-ios-nav-button";
 @import "./components/register/style.css";
 @import "./components/accomplishment/style.css";
 @import "./components/window/style.css";
