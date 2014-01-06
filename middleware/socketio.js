@@ -13,7 +13,7 @@ socketioMiddleware = function (req, res, next) {
   if(!exported.reference && process.env.NODE_ENV != 'testing')
     return next('You need to set the socket.io reference');
 
-  req.io = exported.references;
+  res.io = exported.references;
   next();
 };
 

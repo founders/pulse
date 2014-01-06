@@ -1,4 +1,6 @@
 @import "./topcoat/topcoat-mobile-light.css";
+@import "./components/register/style.css";
+@import "./components/accomplishment/style.css";
 @import "./components/window/style.css";
 
 body,
@@ -11,4 +13,8 @@ body,
   height: 100%;
   width: 100%;
   overflow: hidden;
+}
+
+.pulse-padded {
+  padding: 5px;
 }

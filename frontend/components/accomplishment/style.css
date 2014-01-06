@@ -1,0 +1,17 @@
+.pulse-accomplishment h3 {
+  padding: 5px;
+}
+
+.pulse-accomplishment .accomplishment-body {
+  padding: 10px 0;
+}
+
+.pulse-accomplishment .accomplishment-body .hero {
+  font-size: 1.2em;
+  padding: 10px;
+}
+.pulse-accomplishment .accomplishment-body .signature {
+  font-size: .8em;
+  float: right;
+  margin: 0 10px 10px 0;
+}

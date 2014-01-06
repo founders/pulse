@@ -1,0 +1,16 @@
+.js-reg-form submit,
+.js-netid-form submit {
+  margin: 5px 0 0 0;
+}
+
+.js-netid-form input,
+.js-netid-form label,
+.js-reg-form input,
+.js-reg-form label {
+  display: block;
+}
+
+.js-netid-form input.invalid,
+.js-reg-form input.invalid {
+  border: 1px solid #ec514e;
+}

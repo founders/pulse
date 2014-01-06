@@ -60,6 +60,13 @@ exports.create = function (req, res, next) {
         , lastname: data.lastname
         , email: data.email
         });
+
+        if(res.io) {
+          res.io.broadcast('register', {
+            firstname: data.firstname
+          , lastname: data.lastname
+          });
+        }
       });
     });
   });

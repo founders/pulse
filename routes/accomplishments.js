@@ -54,20 +54,44 @@ exports.create = function(req, res, next){
         error: 'Not authenticated'
       });
   }
+  User
+    .findOne({_id: req.session.user_id}, function (err, user) {
+      if(err)
+        return next(err);
 
-  Accomplishment.create({
-    text: req.body.text
-  , user_id: req.session.user_id
-  }, function (err, data) {
-    if(err)
-      return next(err);
+      if(!user)
+        return res.send(403, {
+            error: 'Not authenticated'
+          });
 
-    res.send({
-      id: data._id
-    , text: data.text
-    , user_id: data.user_id
+      Accomplishment.create({
+        text: req.body.text
+      , user_id: req.session.user_id
+      }, function (err, data) {
+        var dat;
+
+        if(err)
+          return next(err);
+
+        dat = {
+          id: data._id
+        , text: data.text
+        , user_id: data.user_id
+        };
+
+        res.send(dat);
+
+        if(res.io) {
+          dat.user = {
+            id: user._id
+          , firstname: user.firstname
+          , lastname: user.lastname
+          };
+          delete dat.user_id;
+          res.io.broadcast('accomplishment', dat);
+        }
+      });
     });
-  });
 };
 
 exports.remove = function(req, res){

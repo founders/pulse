@@ -1,8 +1,12 @@
 var App = require('./app')
   , Backbone = require('backbone')
-  , instance = new App();
+  , instance;
 
-// Kinda pointless, perhaps just for debugging purposes
-window.App = instance;
+window.onload = function () {
+  instance = new App();
 
-Backbone.history.start();
+  // Useful for navigating
+  window.App = instance;
+
+  Backbone.history.start();
+};

@@ -48,7 +48,8 @@
     "ribcage-view": "~0.0.12",
     "ribcage-switcher": "git://github.com/ben-ng/ribcage-switcher.git#deployment",
     "jquery-browserify": "~1.8.1",
-    "illinois-directory": "git://github.com/ben-ng/illinois-directory.git#patch-1"
+    "illinois-directory": "git://github.com/ben-ng/illinois-directory.git#patch-1",
+    "socket.io-browserify": "~0.9.6"
   },
   "author": "Ben Ng (http://benng.me)",
   "license": "GPL-v3",
