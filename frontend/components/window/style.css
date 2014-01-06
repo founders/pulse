@@ -1,6 +1,6 @@
 :root {
   var-entry-pane-height: 80px;
-  var-entry-form-height: 50px;  /* pane-height - 30px */
+  var-entry-form-height: 50px;
 }
 
 .js-main-pane {
@@ -32,8 +32,20 @@
   position: absolute;
   top: 5px;
   left: 5px;
-  right: 5px;
+  right: 260px;
   bottom: var(entry-form-height);
+}
+
+.js-entry-pane .js-comment,
+.js-entry-pane .js-accomplish {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 130px;
+}
+.js-entry-pane .js-comment {
+  width: 115px;
+  right: 140px;
 }
 
 .js-entry-pane .enter-hint {
@@ -44,4 +56,32 @@
   height: 20px;
   line-height: 20px;
   padding: 0 2px;
+}
+
+@media(max-width: 480px) {
+  .js-main-pane {
+    padding:0 0 120px 0;
+  }
+  .js-entry-pane,
+  .js-entry-pane form {
+    height: 120px;
+  }
+
+  .js-entry-pane .js-entry-input {
+    right: 5px;
+  }
+
+  .js-entry-pane .js-comment,
+  .js-entry-pane .js-accomplish {
+    top: 60px;
+    right: 5px;
+  }
+  .js-entry-pane .js-comment {
+    right: 140px;
+  }
+
+  .js-entry-pane .enter-hint {
+    display: none;
+    visibility: hidden;
+  }
 }
