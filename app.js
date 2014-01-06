@@ -11,6 +11,7 @@ var express = require('express')
   , comments = require('./routes/comments')
   , reset = require('./routes/reset')
   , socketio = require('./middleware/socketio')
+  , errorHandler = require('./middleware/error')
   , app = express();
 
 // all environments
@@ -32,7 +33,7 @@ if(process.env.NODE_ENV == 'production')
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(express.errorHandler());
+app.use(errorHandler);
 
 app.post('/login', users.auth);
 app.post('/logout', users.unauth);

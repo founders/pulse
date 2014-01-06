@@ -1,4 +1,5 @@
 var User = require('../db').models.User
+  , async = require('async')
   , JSONStream = require('JSONStream')
   , through = require('through')
   , bcrypt = require('bcrypt')
@@ -34,14 +35,38 @@ exports.list = function (req, res) {
 };
 
 exports.create = function (req, res, next) {
-  bcrypt.genSalt(8, function (err, salt) {
-    if(err)
-      return next(err);
+  var hash
+    , salt;
 
-    bcrypt.hash(req.body.password, salt, function (err, hash) {
-      if(err)
-        return next(err);
+  async.series([
+    function (then) {
+      User.findOne({email: req.body.email}, function (err, data) {
+        if(err)
+          return then(err);
 
+        if(data)
+          return res.send(500, {error: 'The email already exists in the system'});
+
+        then();
+      });
+    }
+  , function (then) {
+      bcrypt.genSalt(8, function (err, s) {
+        if(err)
+          return then(err);
+
+        bcrypt.hash(req.body.password, s, function (err, h) {
+          if(err)
+            return then(err);
+
+          salt = s;
+          hash = h;
+
+          then();
+        });
+      });
+    }
+  , function (then) {
       User.create({
         firstname: req.body.firstname
       , lastname: req.body.lastname
@@ -50,7 +75,7 @@ exports.create = function (req, res, next) {
       , salt: salt
       }, function (err, data) {
         if(err)
-          return next(err);
+          return then(err);
 
         req.session.user_id = data._id;
 
@@ -67,8 +92,13 @@ exports.create = function (req, res, next) {
           , lastname: data.lastname
           });
         }
+
+        then();
       });
-    });
+    }
+  ], function (err) {
+    if(err)
+      return next(err);
   });
 };
 

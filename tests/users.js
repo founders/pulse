@@ -32,6 +32,29 @@ tests.push(function (done) {
 });
 
 tests.push(function (done) {
+  console.log('Creating a user with too short a name should fail'.bold);
+
+  request(app)
+    .post('/users')
+    .send({
+        firstname: 'B'
+      , lastname: 'Afraid'
+      , email: 'bob@illinois.edu'
+      , password: 'entreprenerdparty'
+      })
+    .expect('Content-Type', /json/)
+    .expect(500)
+    .end(function (err, res) {
+      if(err)
+        return done(err);
+
+      console.log(res.body);
+
+      done();
+    });
+});
+
+tests.push(function (done) {
   console.log('Create a user'.bold);
 
   request(app)
@@ -39,7 +62,7 @@ tests.push(function (done) {
     .send({
         firstname: 'Bobby'
       , lastname: 'McTester'
-      , email: 'bob@bob.com'
+      , email: 'bob@illinois.edu'
       , password: 'entreprenerdparty'
       })
     .expect('Content-Type', /json/)
@@ -54,11 +77,35 @@ tests.push(function (done) {
 
       assert.equal(res.body.firstname, 'Bobby', 'First name should be Bobby');
       assert.equal(res.body.lastname, 'McTester', 'Last name should be McTester');
-      assert.equal(res.body.email, 'bob@bob.com', 'Email should be bob@bob.com');
+      assert.equal(res.body.email, 'bob@illinois.edu', 'Email should be bob@illinois.edu');
       assert.strictEqual(res.body.salt, undefined, 'Salt should be undefined');
       assert.strictEqual(res.body.hash, undefined, 'Hash should be undefined');
 
       CookieJar.jar = res.headers['set-cookie'].pop().split(';')[0];
+
+      done();
+    });
+});
+
+tests.push(function (done) {
+  console.log('Creating a duplicate user should fail'.bold);
+
+  request(app)
+    .post('/users')
+    .send({
+        firstname: 'Bobby'
+      , lastname: 'McTester'
+      , email: 'bob@illinois.edu'
+      , password: 'entreprenerdparty'
+      })
+    .expect('Content-Type', /json/)
+    .expect(500)
+    .end(function (err, res) {
+      if(err)
+        return done(err);
+
+      assert.equal(res.body.error, 'The email already exists in the system'
+        , 'The error should say the email already exists');
 
       done();
     });
@@ -82,7 +129,7 @@ tests.push(function (done) {
       assert.equal(res.body.id, UserId, 'Id should match saved value');
       assert.equal(res.body.firstname, 'Bobby', 'First name should be Bobby');
       assert.equal(res.body.lastname, 'McTester', 'Last name should be McTester');
-      assert.equal(res.body.email, 'bob@bob.com', 'Email should be bob@bob.com');
+      assert.equal(res.body.email, 'bob@illinois.edu', 'Email should be bob@illinois.edu');
       assert.strictEqual(res.body.salt, undefined, 'Salt should be undefined');
       assert.strictEqual(res.body.hash, undefined, 'Hash should be undefined');
 
@@ -110,7 +157,7 @@ tests.push(function (done) {
       assert.equal(res.body[0].id, UserId, 'Id should match saved value');
       assert.equal(res.body[0].firstname, 'Bobby', 'First name should be Bobby');
       assert.equal(res.body[0].lastname, 'McTester', 'Last name should be McTester');
-      assert.equal(res.body[0].email, 'bob@bob.com', 'Email should be bob@bob.com');
+      assert.equal(res.body[0].email, 'bob@illinois.edu', 'Email should be bob@illinois.edu');
       assert.strictEqual(res.body[0].password, undefined, 'Password should be undefined');
       assert.strictEqual(res.body[0].hash, undefined, 'Hash should be undefined');
 
@@ -191,7 +238,7 @@ tests.push(function (done) {
   request(app)
     .post('/login')
     .send({
-        email: 'bob@bob.com'
+        email: 'bob@illinois.edu'
       , password: 'bogus'
       })
     .expect('Content-Type', /json/)
@@ -213,7 +260,7 @@ tests.push(function (done) {
   request(app)
     .post('/login')
     .send({
-        email: 'bob@bob.com'
+        email: 'bob@illinois.edu'
       , password: 'entreprenerdparty'
       })
     .expect('Content-Type', /json/)
@@ -225,7 +272,7 @@ tests.push(function (done) {
       assert.equal(res.body.id, UserId, 'Id should match saved value');
       assert.equal(res.body.firstname, 'Bobby', 'First name should be Bobby');
       assert.equal(res.body.lastname, 'McTester', 'Last name should be McTester');
-      assert.equal(res.body.email, 'bob@bob.com', 'Email should be bob@bob.com');
+      assert.equal(res.body.email, 'bob@illinois.edu', 'Email should be bob@illinois.edu');
       assert.strictEqual(res.body.salt, undefined, 'Salt should be undefined');
       assert.strictEqual(res.body.hash, undefined, 'Hash should be undefined');
 
@@ -253,7 +300,7 @@ tests.push(function (done) {
       assert.equal(res.body.id, UserId, 'Id should match saved value');
       assert.equal(res.body.firstname, 'Bobby', 'First name should be Bobby');
       assert.equal(res.body.lastname, 'McTester', 'Last name should be McTester');
-      assert.equal(res.body.email, 'bob@bob.com', 'Email should be bob@bob.com');
+      assert.equal(res.body.email, 'bob@illinois.edu', 'Email should be bob@illinois.edu');
       assert.strictEqual(res.body.salt, undefined, 'Salt should be undefined');
       assert.strictEqual(res.body.hash, undefined, 'Hash should be undefined');
 
@@ -269,7 +316,7 @@ tests.push(function (done) {
     .send({
         firstname: 'Charlie'
       , lastname: 'McTester'
-      , email: 'charlie@charlie.com'
+      , email: 'charlie@illinois.edu'
       , password: 'moocows'
       })
     .expect('Content-Type', /json/)
@@ -284,8 +331,8 @@ tests.push(function (done) {
 
       assert.equal(res.body.firstname, 'Charlie', 'First name should be Charlie');
       assert.equal(res.body.lastname, 'McTester', 'Last name should be McTester');
-      assert.equal(res.body.email, 'charlie@charlie.com'
-        , 'Email should be charlie@charlie.com');
+      assert.equal(res.body.email, 'charlie@illinois.edu'
+        , 'Email should be charlie@illinois.edu');
       assert.strictEqual(res.body.salt, undefined, 'Salt should be undefined');
       assert.strictEqual(res.body.hash, undefined, 'Hash should be undefined');
 
