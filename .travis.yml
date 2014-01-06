@@ -1,5 +1,8 @@
 ---
-services: mongodb
+services:
+  - mongodb
+  - redis
+
 language: node_js
 deploy:
   provider: nodejitsu
