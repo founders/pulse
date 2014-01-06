@@ -60,11 +60,11 @@
 
 @media(max-width: 480px) {
   .js-main-pane {
-    padding:0 0 120px 0;
+    padding:0 0 115px 0;
   }
   .js-entry-pane,
   .js-entry-pane form {
-    height: 120px;
+    height: 115px;
   }
 
   .js-entry-pane .js-entry-input {
