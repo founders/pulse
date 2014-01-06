@@ -1,8 +1,6 @@
 var Accomplishment = require('../db').models.Accomplishment
   , User = require('../db').models.User
-  , map = require('lodash.map')
-  , uniq = require('lodash.uniq')
-  , each = require('lodash.foreach');
+  , _ = require('lodash');
 
 exports.list = function(req, res, next){
   Accomplishment
@@ -15,8 +13,8 @@ exports.list = function(req, res, next){
       if(accomplishments.length === 0)
         return res.send([]);
 
-      var uniqueUsers = uniq(map(accomplishments, function (a) {return a.user_id;}))
-        , orCond = map(uniqueUsers, function (u) {return {_id: u};});
+      var uniqueUsers = _.uniq(_.map(accomplishments, function (a) {return a.user_id;}))
+        , orCond = _.map(uniqueUsers, function (u) {return {_id: u};});
 
       User
         .find({$or: orCond})
@@ -27,7 +25,7 @@ exports.list = function(req, res, next){
 
         var userMap = {};
 
-        each(users, function (u) {
+        _.each(users, function (u) {
           userMap[u._id] = {
             id: u._id
           , firstname: u.firstname
@@ -35,7 +33,7 @@ exports.list = function(req, res, next){
           };
         });
 
-        res.send(map(accomplishments, function (a) {
+        res.send(_.map(accomplishments, function (a) {
           return {
             id: a._id
           , text: a.text
