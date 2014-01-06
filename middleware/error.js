@@ -4,8 +4,6 @@
 var handleError;
 
 handleError = function (err, req, res, next) {
-  console.log(err);
-
   if(err)
     res.send(500, {error: err});
   else

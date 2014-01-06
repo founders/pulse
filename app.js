@@ -26,10 +26,7 @@ app.use(express.cookieSession({
 , cookie: { maxAge: 60 * 60 * 1000 }
 }));
 app.use(socketio.middleware);
-
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(errorHandler);
 
 app.post('/login', users.auth);
 app.post('/logout', users.unauth);
@@ -51,5 +48,7 @@ app.delete('/comments/:id', comments.remove);
 
 if(process.env.NODE_ENV != 'production')
   app.get('/reset', reset);
+
+app.use(errorHandler);
 
 module.exports = app;
