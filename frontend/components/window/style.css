@@ -1,0 +1,30 @@
+.js-entry-pane {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  padding: 0 5px;
+}
+
+.js-entry-pane form {
+  height: 50px;
+}
+
+.js-entry-pane .js-entry-input {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  height: 50px;
+}
+
+.js-entry-pane .enter-hint {
+  position: absolute;
+  color: #333;
+  font-size: .8em;
+  bottom: 2px;
+  height: 20px;
+  line-height: 20px;
+  padding: 0 2px;
+}

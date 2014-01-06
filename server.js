@@ -1,9 +1,14 @@
 var http = require('http')
+  , path = require('path')
+  , fs = require('fs')
+  , async = require('async')
   , app = require('./app')
   , server = http.createServer(app)
   , io = require('socket.io').listen(server)
   , socketioMiddleware = require('./middleware/socketio')
   , _ = require('lodash')
+  , atomifyjs = require('atomify-js')
+  , atomifycss = require('atomify-css')
   , pool = []
   , broadcast;
 
@@ -27,6 +32,45 @@ io.sockets.on('connection', function (socket) {
   });
 });
 
-server.listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+// Compile front-end
+async.series([
+  function (next) {
+    atomifyjs({
+      entry: path.join(__dirname, 'frontend', 'index.js')
+    }, function (err, src) {
+      if(err)
+        return next(err);
+
+      fs.writeFile(path.join(__dirname, 'public', 'pulse.js'), src, function (err) {
+        if(err)
+          return next(err);
+
+        next();
+      });
+    });
+  }
+, function (next) {
+    atomifycss({
+      entry: path.join(__dirname, 'frontend', 'index.css')
+    }, function (err, src) {
+      if(err)
+        return next(err);
+
+      fs.writeFile(path.join(__dirname, 'public', 'pulse.css'), src, function (err) {
+        if(err)
+          return next(err);
+
+        next();
+      });
+    });
+  }
+], function (err) {
+  if(err) {
+    throw err;
+  }
+  else {
+    server.listen(app.get('port'), function(){
+      console.log('Express server listening on port ' + app.get('port'));
+    });
+  }
 });
