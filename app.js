@@ -31,10 +31,7 @@ if(process.env.NODE_ENV == 'production')
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-// development only
-if(process.env.NODE_ENV != 'production') {
-  app.use(express.errorHandler());
-}
+app.use(express.errorHandler());
 
 app.post('/login', users.auth);
 app.post('/logout', users.unauth);

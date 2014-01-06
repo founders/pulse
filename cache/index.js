@@ -1,14 +1,21 @@
 var redis = require('redis')
   , async = require('async')
   , config = require('../config')
-  , client = redis.createClient(config.redis.port, config.redis.host)
+  , client
   , ready = false
   , throttled = []
   , set
   , get;
 
-if(process.env.NODE_ENV == 'production')
-  client.auth(config.redis.auth);
+client = redis.createClient(config.redis.port, config.redis.host);
+
+if(process.env.NODE_ENV == 'production') {
+  client.auth(config.redis.host + ':' + config.redis.auth, function (err) {
+    if(err)
+      throw err;
+  });
+}
+
 
 set = function (key, value, cb) {
   if(ready) {
