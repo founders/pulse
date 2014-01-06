@@ -2,6 +2,7 @@ var http = require('http')
   , path = require('path')
   , fs = require('fs')
   , async = require('async')
+  , uglify = require('uglify-js')
   , app = require('./app')
   , server = http.createServer(app)
   , io = require('socket.io').listen(server)
@@ -40,6 +41,9 @@ async.series([
     }, function (err, src) {
       if(err)
         return next(err);
+
+      if(process.env.NODE_ENV == 'production')
+        src = uglify.minify(src, {fromString: true});
 
       fs.writeFile(path.join(__dirname, 'public', 'pulse.js'), src, function (err) {
         if(err)
