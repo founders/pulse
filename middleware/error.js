@@ -4,7 +4,12 @@
 var handleError;
 
 handleError = function (err, req, res, next) {
-  res.send(500, {error: err});
+  console.log(err);
+
+  if(err)
+    res.send(500, {error: err});
+  else
+    next();
 };
 
 module.exports = handleError;

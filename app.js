@@ -27,10 +27,6 @@ app.use(express.cookieSession({
 }));
 app.use(socketio.middleware);
 
-if(process.env.NODE_ENV == 'production')
-  app.use(express.csrf());
-
-app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(errorHandler);
@@ -55,9 +51,5 @@ app.delete('/comments/:id', comments.remove);
 
 if(process.env.NODE_ENV != 'production')
   app.get('/reset', reset);
-
-app.get('/token', function (req, res) {
-  res.send({token: req.csrfToken()});
-});
 
 module.exports = app;

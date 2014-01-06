@@ -44,7 +44,7 @@ async.series([
         return next(err);
 
       if(process.env.NODE_ENV == 'production')
-        src = uglify.minify(src, {fromString: true});
+        src = uglify.minify(src, {fromString: true}).code;
 
       fs.writeFile(path.join(__dirname, 'public', 'pulse.js'), src, function (err) {
         if(err)
