@@ -17,6 +17,7 @@ var mongoose = require('mongoose')
       , trim: true
       , required: true
       , match: /^[a-zA-Z0-9]{2,}@illinois.edu$/
+      , lowercase: true
       }
     , hash: {
         type: String
