@@ -41,7 +41,7 @@
     "handlebars": "~1.0.12",
     "hbsfy": "~1.0.0",
     "envify": "~1.0.1",
-    "atomify-js": "~0.0.8",
+    "atomify-js": "git://github.com/ben-ng/atomify-js.git#patch-1",
     "atomify-css": "~0.0.6",
     "backbone": "~1.1.0",
     "lodash.bind": "~2.4.1",
