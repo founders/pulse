@@ -6,6 +6,8 @@
 var Ribcage = require('ribcage-view')
   , $ = require('jquery-browserify')
   , User = require('../../models/user')
+  , Topbar = require('ribcage-top-bar')
+  , BackButton = require('ribcage-back-button')
   , AuthPanel;
 
 AuthPanel = Ribcage.extend({
@@ -16,6 +18,18 @@ AuthPanel = Ribcage.extend({
   , 'click .js-netid-lookup': 'lookupNetid'
   , 'submit .js-reg-form form': 'registerUser'
   , 'click .js-reg': 'registerUser'
+  , 'click .js-cancel': 'cancelAuth'
+  }
+, afterRender: function () {
+    var topBar = new Topbar({})
+      , back = new BackButton({
+        action: function () {
+          App.navigate('', {trigger: true});
+        }
+      });
+
+    topBar.setLeftButton(back);
+    this.appendSubview(topBar, this.$('.top-bar-holder'));
   }
 , lookupNetid: function (e) {
     if(e) {
@@ -60,6 +74,8 @@ AuthPanel = Ribcage.extend({
       e.stopPropagation();
     }
 
+    this.$('.js-reg').prop('disabled', true).text('Registering...');
+
     newUser = new User({
         firstname: this.$('.js-firstname').val()
       , lastname: this.$('.js-lastname').val()
@@ -67,7 +83,11 @@ AuthPanel = Ribcage.extend({
       , password: this.$('.js-password').val()
       });
 
-    newUser.on('error', App.handleError);
+    newUser.on('error', function () {
+      App.handleError.apply(App, arguments);
+
+      this.$('.js-reg').prop('disabled', true).text('Join Us');
+    });
 
     newUser.on('sync', function () {
       App.navigate('', {trigger: true});
@@ -81,6 +101,11 @@ AuthPanel = Ribcage.extend({
     , netid: this.netid
     , details: this.detailPlaceholders
     };
+  }
+, cancelAuth: function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    App.navigate('', {trigger: true});
   }
 });
 

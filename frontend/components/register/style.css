@@ -1,6 +1,8 @@
 .js-reg-form submit,
-.js-netid-form submit {
-  margin: 5px 0 0 0;
+.js-netid-form submit,
+.js-reg-form button,
+.js-netid-form button {
+  margin: 5px 5px 0 0;
 }
 
 .js-netid-form input,
