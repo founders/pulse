@@ -57,6 +57,12 @@ Or run the tests:
 $ npm test
 ```
 
+### Windows User?
+
+Check out these [additional things](https://github.com/TooTallNate/node-gyp/#installation) you'll need to build bcrypt.
+
+Also, nodemon probably won't work for you. Just run `node server.js` to start the dev server.
+
 ## Deployment
 
 Deployment is automatic and happens whenever a push to the master branch does not break the build.
