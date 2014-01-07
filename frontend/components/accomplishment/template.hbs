@@ -1,6 +1,13 @@
 <div class="topcoat-list">
   <h3 class="topcoat-list__header">
-    <strong>{{user.firstname}} {{user.lastname}}</strong> accomplished something!
+  	<div class="wrap">
+      <div class="header-left">
+  		  <strong>{{user.firstname}} {{user.lastname}}</strong> accomplished something!
+  		</div>
+  		<div class="header-right">
+  			{{ updated }}
+  		</div>
+  	</div>
   </h3>
   <ul class="topcoat-list__container">
     <li class="accomplishment-body">
