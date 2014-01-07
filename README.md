@@ -57,9 +57,9 @@ Or run the tests:
 $ npm test
 ```
 
-## Developing On Windows
+### Developing On Windows
 
-### Getting node and npm
+#### Getting node and npm
 
  * Install node.js from [here](http://nodejs.org)
  * Right click on "This PC" or "My Computer", go to Advanced System Settings and edit Environment Variables
@@ -67,14 +67,14 @@ $ npm test
     * The first path might already be there, the second is neglected by the installer as of this time of writing
  * Close and open your terminals. Commands like `npm` and `node` should now work.
 
-### Compiling native modules
+#### Compiling native modules
 
  * Install [Python 2.7.3](http://www.python.org/download/releases/2.7.3/#download)
  * Install [Visual Studio 2012 Express](http://www.microsoft.com/en-us/download/confirmation.aspx?id=34673)
  * Install [Windows SDK](http://www.microsoft.com/en-us/download/details.aspx?id=8279)
  * Install [Visual C++ 2008 Redistributables](http://www.microsoft.com/en-us/download/details.aspx?id=15336)
  * Install [OpenSSL](http://slproweb.com/download/Win64OpenSSL-1_0_0k.exe)
- * Go to your geddy app's directory and run `npm install --msvs_version=2012`
+ * Go to the `pulse` app directory and run `npm install --msvs_version=2012`
 
 ## Deployment
 
