@@ -2,6 +2,18 @@
   padding: 5px;
 }
 
+.pulse-accomplishment .wrap {
+  overflow: auto;
+}
+
+.pulse-accomplishment .header-left {
+  float: left;
+}
+
+.pulse-accomplishment .header-right {
+  float: right;
+}
+
 .pulse-accomplishment .accomplishment-body {
   padding: 10px 0;
 }
