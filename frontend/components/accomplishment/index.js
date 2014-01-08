@@ -7,14 +7,50 @@ var Ribcage = require('ribcage-view')
 AccomplishmentView = Ribcage.extend({
   template: require('./template.hbs')
 , className: 'pulse-accomplishment'
+, loadingComments: false
+, events: {
+    'click .js-load-comments': 'loadComments'
+  }
 , afterInit: function (opts) {
+    var self = this;
+
     if(!opts || !opts.model)
       throw new Error('This view must be initialized with an Accomplishment model');
 
-    this.model = opts.model;
+    this.accomplishment = opts.model;
+
+    this.accomplishment.on('comments:initialLoad', function () {
+      this.loadingComments = true;
+      self.render();
+    });
+
+    this.accomplishment.on('comments:sync', function () {
+      self.loadingComments = false;
+      self.render();
+    });
+
+    this.accomplishment.on('comments:add', function () {
+      self.render();
+    });
   }
 , context: function () {
-    return this.model.toJSON();
+    return {
+      accomplishment: this.accomplishment.toJSON()
+    , comments: this.accomplishment.commentsLoaded() ? this.accomplishment.getComments() : []
+    , noComments: this.accomplishment.comments === null && !this.loadingComments
+    , loadingComments: this.loadingComments
+    };
+  }
+, insertComment: function (commentModel) {
+    if(this.accomplishment.commentsLoaded())
+      this.accomplishment.addComment(commentModel);
+  }
+, loadComments: function () {
+    this.accomplishment.loadComments();
+  }
+, beforeClose: function () {
+    if(this.comments)
+      this.comments.off();
   }
 });
 

@@ -67,52 +67,6 @@ exports.list = function(req, res, next) {
     if(err)
       return next(err);
   });
-
-  Comment
-    .find({})
-    .select('text user_id updated')
-    .sort('-updated')
-    .exec(function (err, comments) {
-      if(err)
-        return next(err);
-
-      if(comments.length === 0)
-        return res.send([]);
-
-      // Construct the $or condition
-      var orCond = _(comments)
-        .pluck('user_id')
-        .uniq()
-        .map(function (u) {return {_id: u};})
-        .value();
-
-      User
-        .find({$or: orCond})
-        .select('firstname lastname')
-        .exec(function (err, users) {
-        if(err)
-          return next(err);
-
-        var userMap = {};
-
-        _.each(users, function (u) {
-          userMap[u._id] = {
-            id: u._id
-          , firstname: u.firstname
-          , lastname: u.lastname
-          };
-        });
-
-        res.send(_.map(comments, function (a) {
-          return {
-            id: a._id
-          , text: a.text
-          , updated: a.updated
-          , user: userMap[a.user_id]
-          };
-        }));
-      });
-    });
 };
 
 exports.create = function(req, res, next){

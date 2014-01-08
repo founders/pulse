@@ -14,16 +14,28 @@
   float: right;
 }
 
-.pulse-accomplishment .accomplishment-body {
-  padding: 10px 0;
+.pulse-accomplishment .comment-body {
+  border-left: 10px solid #777;
+  background-color: #FFF;
+  padding: .1rem;
 }
 
-.pulse-accomplishment .accomplishment-body .hero {
+.pulse-accomplishment .text-holder,
+.pulse-accomplishment .signature {
   font-size: 1.2em;
   padding: 10px;
 }
-.pulse-accomplishment .accomplishment-body .signature {
+
+.pulse-accomplishment .signature,
+.pulse-accomplishment .js-load-comments,
+.pulse-accomplishment .loading-comments {
   font-size: .8em;
-  float: right;
-  margin: 0 10px 10px 0;
+  text-align: right;
+}
+
+.pulse-accomplishment .js-load-comments,
+.pulse-accomplishment .loading-comments {
+  text-align: center;
+  padding: .3rem;
+  background-color: #EEE;
 }
