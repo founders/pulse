@@ -2,7 +2,8 @@
 * Holds a single accomplishment
 */
 var Ribcage = require('ribcage-view')
-  , AccomplishmentView;
+  , AccomplishmentView
+  , relDat = require('relative-date');
 
 AccomplishmentView = Ribcage.extend({
   template: require('./template.hbs')
@@ -37,7 +38,6 @@ AccomplishmentView = Ribcage.extend({
     });
   }
 , context: function () {
-	var relDat = require('relative-date');
 	var accomplish = this.accomplishment.toJSON();
 	accomplish.relativeDate = relDat(this.accomplishment.get('updated'));
     return {
