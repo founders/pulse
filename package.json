@@ -1,6 +1,6 @@
 {
   "name": "pulse-server",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Do great things, one accomplishment at a time",
   "main": "server.js",
   "scripts": {
@@ -12,8 +12,7 @@
     "url": "git://github.com/Illinois-Founders/pulse.git"
   },
   "domains": [
-    "pulse.founders.is",
-    "www.pulse.founders.is"
+    "pulse.founders.is"
   ],
   "subdomain": "pulse-il",
   "engines": {
