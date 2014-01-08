@@ -9,8 +9,11 @@ AccomplishmentView = Ribcage.extend({
 , className: 'pulse-accomplishment'
 , loadingComments: false
 , events: {
-    'click .js-load-comments': 'loadComments'
+    'click .js-load-comments'	:	'loadComments',
+    'mouseover .header-right'	:	'loadRealTime',
+	'mouseleave .header-right'	:	'loadRelativeTime'
   }
+
 , afterInit: function (opts) {
     var self = this;
 
@@ -34,8 +37,11 @@ AccomplishmentView = Ribcage.extend({
     });
   }
 , context: function () {
+	var relDat = require('relative-date');
+	var accomplish = this.accomplishment.toJSON();
+	accomplish.relativeDate = relDat(this.accomplishment.get('updated'));
     return {
-      accomplishment: this.accomplishment.toJSON()
+      accomplishment: accomplish
     , comments: this.accomplishment.commentsLoaded() ? this.accomplishment.getComments() : []
     , noCommentsLoaded: this.accomplishment.comments === null && !this.loadingComments
     , noComments: this.accomplishment.commentsLoaded() && this.accomplishment.getComments().length === 0
@@ -53,6 +59,15 @@ AccomplishmentView = Ribcage.extend({
     if(this.comments)
       this.comments.off();
   }
+, loadRealTime: function() {
+	this.$('.relative-date').hide();
+	this.$('.real-hidden-date').show();
+  }
+, loadRelativeTime: function() {
+	this.$('.relative-date').show();
+	this.$('.real-hidden-date').hide();
+}
+
 });
 
 module.exports = AccomplishmentView;
