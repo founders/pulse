@@ -37,7 +37,8 @@ AccomplishmentView = Ribcage.extend({
     return {
       accomplishment: this.accomplishment.toJSON()
     , comments: this.accomplishment.commentsLoaded() ? this.accomplishment.getComments() : []
-    , noComments: this.accomplishment.comments === null && !this.loadingComments
+    , noCommentsLoaded: this.accomplishment.comments === null && !this.loadingComments
+    , noComments: this.accomplishment.commentsLoaded() && this.accomplishment.getComments().length === 0
     , loadingComments: this.loadingComments
     };
   }

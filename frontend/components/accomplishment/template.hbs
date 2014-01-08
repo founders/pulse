@@ -23,15 +23,21 @@
     </li>
     {{/with}}
 
-    {{#if noComments}}
+    {{#if noCommentsLoaded}}
     <li class="js-load-comments topcoat-list__item">
       Load Comments
     </li>
     {{/if}}
 
     {{#if loadingComments}}
-    <li class="loading-comments topcoat-list__item">
+    <li class="loading-comments-status topcoat-list__item">
       Loading Comments..
+    </li>
+    {{/if}}
+
+    {{#if noComments}}
+    <li class="loading-comments-status topcoat-list__item">
+      No Comments
     </li>
     {{/if}}
 
