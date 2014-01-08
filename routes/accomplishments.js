@@ -97,7 +97,3 @@ exports.create = function(req, res, next){
       });
     });
 };
-
-exports.remove = function(req, res){
-  res.send('respond with a resource');
-};

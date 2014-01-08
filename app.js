@@ -54,13 +54,11 @@ app.get('/users/:id', users.view);
 app.get('/accomplishments', accomplishments.list);
 // Create a new accomplishment
 app.post('/accomplishments', accomplishments.create);
-// TODO
-app.delete('/accomplishments/:id', accomplishments.remove);
 
-// TODO
+// Show all comments
 app.get('/comments', comments.list);
+// Create a comment
 app.post('/comments', comments.create);
-app.delete('/comments/:id', comments.remove);
 
 if(process.env.NODE_ENV != 'production')
   app.get('/reset', reset);
