@@ -15,8 +15,8 @@ AccomplishmentView = Ribcage.extend({
   }
 , context: function () {
 	var relativeDate = require('relative-date');
-	var modelFields = model.toJSON();
-	modelFields.relativeDate = relativeDate(model.updated);
+	var modelFields = this.model.toJSON();
+	modelFields.relativeDate = relativeDate(this.model.get('updated'));
 	return modelFields;
   }
 });
