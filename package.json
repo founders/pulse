@@ -56,7 +56,8 @@
     "illinois-directory": "~0.0.5",
     "socket.io-browserify": "~0.9.6",
     "uglify-js": "~2.4.8",
-    "clean-css": "~2.0.6"
+    "clean-css": "~2.0.6",
+    "relative-date": "~1.1.1"
   },
   "author": "Ben Ng (http://benng.me)",
   "contributors":[

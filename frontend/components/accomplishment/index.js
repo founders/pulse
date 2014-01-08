@@ -18,4 +18,9 @@ AccomplishmentView = Ribcage.extend({
   }
 });
 
+Handlebars.registerHelper("relDate", function (date) {
+	var relativeDate = require('relative-date');
+	return relativeDate(date);
+});
+
 module.exports = AccomplishmentView;
