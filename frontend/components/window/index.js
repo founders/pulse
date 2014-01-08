@@ -6,6 +6,7 @@
 var Ribcage = require('ribcage-view')
   , User = require('../../models/user')
   , Accomplishment = require('../../models/accomplishment')
+  , Comment = require('../../models/comment')
   , Accomplishments = require('../../collections/accomplishments')
   , AccomplishmentView = require('../accomplishment')
   , AppWindow
@@ -28,17 +29,42 @@ AppWindow = Ribcage.extend({
     var self = this
       , socket = io.connect('/');
 
-    this.collection = new Accomplishments([]);
-    this.collection.on('add remove change', this.render, this);
-    this.collection.on('error', App.handleError);
-    this.collection.fetch();
+    this.accomplishments = new Accomplishments([]);
+    this.accomplishments.on('add remove change', function () {
+      self.render();
+      self.scrollDown();
+    }, this);
+    this.accomplishments.on('error', App.handleError);
+
+    // Once accomplishments are loaded for the first time
+    // , load the last one's comments
+    this.accomplishments.once('sync', function () {
+      if(self.accomplishments.length) {
+        var last = self.accomplishments.last();
+
+        // After the initial comment load completes it should scroll down
+        last.once('comments:sync', self.scrollDown, self);
+
+        last.loadComments();
+      }
+    });
+
+    this.accomplishments.fetch();
 
     socket.on('accomplishment', function (data) {
-      var accomplishment = new Accomplishment(data)
-        , mainPane = self.$('.js-main-pane');
+      var accomplishment = new Accomplishment(Accomplishment.prototype.parse(data));
 
-      self.appendSubview(new AccomplishmentView({model: accomplishment}), mainPane);
-      mainPane.scrollTop(mainPane[0].scrollHeight);
+      self.accomplishments.add(accomplishment);
+      accomplishment.loadComments();
+    });
+
+    socket.on('comment', function (data) {
+      var lastAccomplishment = self.accomplishments.last();
+
+      if(lastAccomplishment.commentsLoaded()) {
+        lastAccomplishment.addComment(new Comment(Comment.prototype.parse(data)));
+        self.scrollDown();
+      }
     });
 
     $.ajax('/whoami', {
@@ -54,6 +80,10 @@ AppWindow = Ribcage.extend({
       }
     });
   }
+, scrollDown: function () {
+    var mainPane = this.$('.js-main-pane');
+    mainPane.scrollTop(mainPane[0].scrollHeight);
+  }
 , afterRender: function () {
     var self = this
       , mainPane = this.$('.js-main-pane');
@@ -61,18 +91,34 @@ AppWindow = Ribcage.extend({
     this.$('.invalid-hint').hide();
     this.$('.incomplete-hint').hide();
 
-    this.collection.each(function (accomplishment) {
+    this.accomplishments.each(function (accomplishment) {
       self.appendSubview(new AccomplishmentView({model: accomplishment}), mainPane);
     });
 
     this.$('.js-entry-input').focus();
-
-    mainPane.scrollTop(mainPane[0].scrollHeight);
   }
 , sendComment: function () {
-    this.$('.enter-hint').hide();
-    this.$('.invalid-hint').hide();
-    this.$('.incomplete-hint').show();
+    var self = this
+      , newComment = new Comment({
+          text: this.$('.js-entry-input').val()
+        });
+
+    newComment.on('error', function () {
+      self.$('.enter-hint').hide();
+      self.$('.invalid-hint').show();
+      self.$('.incomplete-hint').hide();
+
+      self.$('.js-entry-input').addClass('invalid').focus();
+    });
+
+    newComment.save({}, {
+      success: function () {
+        self.$('.enter-hint').show();
+        self.$('.invalid-hint').hide();
+        self.$('.incomplete-hint').hide();
+        self.$('.js-entry-input').removeClass('invalid').val('').focus();
+      }
+    });
   }
 , sendAccomplishment: function () {
     var self = this
@@ -109,8 +155,8 @@ AppWindow = Ribcage.extend({
     }
   }
 , beforeClose: function () {
-    this.collection.off();
-    delete this.collection;
+    this.accomplishments.off();
+    delete this.accomplishments;
   }
 , noop: function (e) {
     if(e) {

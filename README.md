@@ -5,7 +5,7 @@ Do great things, one accomplishment at a time.
 
 [![Build Status](https://travis-ci.org/Illinois-Founders/pulse.png)](https://travis-ci.org/Illinois-Founders/pulse)
 
-[See The Production App](https://pulse-il.jit.su)
+[See The Production App](http://pulse.founders.is)
 
 ## Vision
 

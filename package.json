@@ -1,6 +1,6 @@
 {
   "name": "pulse-server",
-  "version": "0.1.7",
+  "version": "0.2.3",
   "description": "Do great things, one accomplishment at a time",
   "main": "server.js",
   "scripts": {
@@ -12,8 +12,7 @@
     "url": "git://github.com/Illinois-Founders/pulse.git"
   },
   "domains": [
-    "pulse.founders.is",
-    "www.pulse.founders.is"
+    "pulse.founders.is"
   ],
   "subdomain": "pulse-il",
   "engines": {
@@ -57,13 +56,14 @@
     "socket.io-browserify": "~0.9.6",
     "uglify-js": "~2.4.8",
     "clean-css": "~2.0.6",
-    "relative-date": "~1.1.1"
+    "relative-date": "~1.1.1",
+    "canonical-host": "0.0.4"
   },
   "author": "Ben Ng (http://benng.me)",
-  "contributors":[
-      "Jay Bensal <jay.bensal@gmail.com>",
-      "Rohan Kapoor <rohan@rohankapoor.com> (http://rohankapoor.com)"
-  ], 
+  "contributors": [
+    "Jay Bensal <jay.bensal@gmail.com>",
+    "Rohan Kapoor <rohan@rohankapoor.com> (http://rohankapoor.com)"
+  ],
   "license": "GPL-v3",
   "bugs": {
     "url": "https://github.com/Illinois-Founders/pulse/issues"
