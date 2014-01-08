@@ -14,13 +14,11 @@ AccomplishmentView = Ribcage.extend({
     this.model = opts.model;
   }
 , context: function () {
-    return this.model.toJSON();
-  }
-});
-
-Handlebars.registerHelper("relDate", function (date) {
 	var relativeDate = require('relative-date');
-	return relativeDate(date);
+	var modelFields = model.toJSON();
+	modelFields.relativeDate = relativeDate(model.updated);
+	return modelFields;
+  }
 });
 
 module.exports = AccomplishmentView;
