@@ -93,32 +93,3 @@ tests.push(function (done) {
       done();
     });
 });
-
-tests.push(function (done) {
-  console.log('Index accomplishments and expect one result, cached'.bold);
-
-  request(app)
-    .get('/accomplishments')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .end(function (err, res) {
-      if(err)
-        return done(err);
-
-      assert.equal(res.body.length, 1, 'There should be one result');
-
-      assert.equal(res.body[0].text, 'I made the user tests succeed!'
-        , 'Text should be about making tests succeed');
-      assert.equal(res.body[0].id, AccomplishmentId
-        , 'ID should match original value');
-      assert.equal(res.body[0].user.id, UserId
-        , 'User ID should match original value');
-      assert.equal(res.body[0].user.firstname, 'Bobby'
-        , 'First name should be Bobby');
-      assert.equal(res.body[0].user.lastname, 'McTester'
-        , 'Last name should be McTester');
-      assert.ok(res.body[0].updated, 'Updated should not be null');
-
-      done();
-    });
-});
