@@ -12,9 +12,14 @@ var express = require('express')
   , reset = require('./routes/reset')
   , socketio = require('./middleware/socketio')
   , errorHandler = require('./middleware/error')
+  , canon = require('canonical-host')('http://pulse.founders.is')
   , app = express();
 
 app.set('port', process.env.PORT || 4000);
+
+if(process.env.NODE_ENV == 'production')
+  app.use(canon);
+
 app.use(express.favicon());
 app.use(express.logger(process.env.NODE_ENV == 'production' ? 'default' : 'tiny'));
 app.use(express.json());
