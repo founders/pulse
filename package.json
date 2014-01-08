@@ -11,6 +11,10 @@
     "type": "git",
     "url": "git://github.com/Illinois-Founders/pulse.git"
   },
+  "domains": [
+    "pulse.founders.is",
+    "www.pulse.founders.is"
+  ],
   "subdomain": "pulse-il",
   "engines": {
     "node": ">=0.10.0"
