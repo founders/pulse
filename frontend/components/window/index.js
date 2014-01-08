@@ -40,7 +40,12 @@ AppWindow = Ribcage.extend({
     // , load the last one's comments
     this.accomplishments.once('sync', function () {
       if(self.accomplishments.length) {
-        self.accomplishments.last().loadComments();
+        var last = self.accomplishments.last();
+
+        // After the initial comment load completes it should scroll down
+        last.once('comments:sync', self.scrollDown, self);
+
+        last.loadComments();
       }
     });
 
