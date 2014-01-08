@@ -82,7 +82,7 @@ Deployment is automatic and happens whenever a push to the master branch does no
 
 ## License
 
-Copyright (C) 2014 Ben Ng and Contributors
+Copyright (C) 2014 Ben Ng, Rohan Kapoor, Jay Bensal and Contributors
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

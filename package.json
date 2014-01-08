@@ -55,6 +55,10 @@
     "clean-css": "~2.0.6"
   },
   "author": "Ben Ng (http://benng.me)",
+  "contributors":[
+      "Jay Bensal <jay.bensal@gmail.com>",
+      "Rohan Kapoor <rohan@rohankapoor.com> (http://rohankapoor.com)"
+  ], 
   "license": "GPL-v3",
   "bugs": {
     "url": "https://github.com/Illinois-Founders/pulse/issues"
