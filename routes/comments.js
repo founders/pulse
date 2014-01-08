@@ -1,12 +1,76 @@
 var Comment = require('../db').models.Comment
+  , Accomplishment = require('../db').models.Accomplishment
   , User = require('../db').models.User
+  , async = require('async')
+  , loadUsers = require('../helpers/loadUsers')
   , _ = require('lodash');
 
-exports.list = function(req, res, next){
+exports.list = function(req, res, next) {
+  var gt
+    , lte;
+
+  if(!req.query.after)
+    return next('Cannot get comments without a range (e.g. /comments?after=<accomplishment_id>)');
+
+  async.series([
+    function (done) {
+      Accomplishment
+        .findOne({_id: req.query.after}, function (err, accomplishment) {
+          if(err)
+            return done(err);
+
+          if(!accomplishment)
+            return done('Invalid accomplishment id');
+
+          gt = accomplishment.updated;
+
+          done();
+        });
+    }
+  , function (done) {
+      // Now get the next accomplishment
+      Accomplishment
+        .findOne({updated: {$gt: gt}}) // Find the next accomplishment
+        .sort({updated: 1}) // Sort ascending, i.e. get the first possible accomplishment
+        .exec(function (err, nextAccomplishment) {
+          if(err)
+            return done(err);
+
+          if(!nextAccomplishment)
+            lte = new Date();
+          else
+            lte = nextAccomplishment.updated;
+
+          done();
+        });
+    }
+  , function (done) {
+      Comment
+      .find({updated: {$gt: gt, $lte: lte}})
+      .sort({updated: -1})
+      .exec(function (err, comments) {
+        if(err)
+          return done(err);
+
+        if(comments.length === 0)
+          return res.send([]);
+
+        loadUsers(comments, function (err, results) {
+          if(err)
+            return next(err);
+
+          res.send(results);
+        });
+      });
+    }
+  ], function (err) {
+    if(err)
+      return next(err);
+  });
+
   Comment
     .find({})
     .select('text user_id updated')
-    .limit(50)
     .sort('-updated')
     .exec(function (err, comments) {
       if(err)

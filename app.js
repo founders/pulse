@@ -23,6 +23,7 @@ if(process.env.NODE_ENV == 'production')
 app.use(express.favicon());
 app.use(express.logger(process.env.NODE_ENV == 'production' ? 'default' : 'tiny'));
 app.use(express.json());
+app.use(express.query());
 app.use(express.urlencoded());
 app.use(express.cookieParser());
 app.use(express.cookieSession({
