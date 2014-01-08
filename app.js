@@ -12,12 +12,18 @@ var express = require('express')
   , reset = require('./routes/reset')
   , socketio = require('./middleware/socketio')
   , errorHandler = require('./middleware/error')
+  , canon = require('canonical-host')('http://pulse.founders.is')
   , app = express();
 
 app.set('port', process.env.PORT || 4000);
+
+if(process.env.NODE_ENV == 'production')
+  app.use(canon);
+
 app.use(express.favicon());
 app.use(express.logger(process.env.NODE_ENV == 'production' ? 'default' : 'tiny'));
 app.use(express.json());
+app.use(express.query());
 app.use(express.urlencoded());
 app.use(express.cookieParser());
 app.use(express.cookieSession({
@@ -49,13 +55,11 @@ app.get('/users/:id', users.view);
 app.get('/accomplishments', accomplishments.list);
 // Create a new accomplishment
 app.post('/accomplishments', accomplishments.create);
-// TODO
-app.delete('/accomplishments/:id', accomplishments.remove);
 
-// TODO
+// Show all comments
 app.get('/comments', comments.list);
+// Create a comment
 app.post('/comments', comments.create);
-app.delete('/comments/:id', comments.remove);
 
 if(process.env.NODE_ENV != 'production')
   app.get('/reset', reset);
