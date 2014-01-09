@@ -3,7 +3,8 @@
 */
 var Ribcage = require('ribcage-view')
   , AccomplishmentView
-  , relDat = require('relative-date');
+  , relDat = require('relative-date')
+  , CommentView = require('../comment');
 
 AccomplishmentView = Ribcage.extend({
   template: require('./template.hbs')
@@ -12,9 +13,7 @@ AccomplishmentView = Ribcage.extend({
 , events: {
     'click .js-load-comments'   :   'loadComments',
     'mouseover .header-right'   :   'loadRealTimeHeader',
-    'mouseover .signature-left' :   'loadRealTimeComment',
-    'mouseleave .header-right'  :   'loadRelativeTimeHeader',
-    'mouseleave .signature-left':   'loadRelativeTimeComment'
+    'mouseleave .header-right'  :   'loadRelativeTimeHeader'
   }
 
 , afterInit: function (opts) {
@@ -44,11 +43,20 @@ AccomplishmentView = Ribcage.extend({
     accomplish.relativeDate = relDat(this.accomplishment.get('updated'));
     return {
       accomplishment: accomplish
-    , comments: this.accomplishment.commentsLoaded() ? this.accomplishment.getComments() : []
     , noCommentsLoaded: this.accomplishment.comments === null && !this.loadingComments
     , noComments: this.accomplishment.commentsLoaded() && this.accomplishment.getComments().length === 0
     , loadingComments: this.loadingComments
     };
+  }
+, afterRender: function() {
+    var self = this
+    , target = this.$('.js-comment-container');
+
+    if(this.accomplishment.commentsLoaded())
+      this.accomplishment.getComments().each(function (comment) {
+        var commentView = new CommentView({model : comment});
+        self.appendSubview(commentView, target);
+      });
   }
 , insertComment: function (commentModel) {
     if(this.accomplishment.commentsLoaded())
@@ -69,15 +77,6 @@ AccomplishmentView = Ribcage.extend({
     this.$('.header-relative-date').show();
     this.$('.header-real-hidden-date').hide();
   }
-, loadRealTimeComment: function() {
-    this.$('.comment-relative-date').hide();
-    this.$('.comment-real-hidden-date').show();
-  }
-, loadRelativeTimeComment: function() {
-    this.$('.comment-relative-date').show();
-    this.$('.comment-real-hidden-date').hide();
-  }
-
 });
 
 module.exports = AccomplishmentView;
