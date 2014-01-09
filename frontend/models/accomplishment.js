@@ -1,5 +1,6 @@
 var Backbone = require('backbone')
   , Comments = require('../collections/comments')
+  , relative = require('relative-date')
   , Accomplishment;
 
 Accomplishment = Backbone.Model.extend({
@@ -26,7 +27,11 @@ Accomplishment = Backbone.Model.extend({
     if(!this.comments)
       throw new Error('You need to loadComments before you can get comments');
 
-    return this.comments.toJSON();
+    return this.comments.map(function (comment) {
+      var obj = comment.toJSON();
+      obj.relativeDate = relative(obj.updated);
+      return obj;
+    });
   }
 , loadComments: function () {
     var self = this;
