@@ -10,8 +10,9 @@ var Ribcage = require('ribcage-view')
   , Accomplishments = require('../../collections/accomplishments')
   , AccomplishmentView = require('../accomplishment')
   , AppWindow
-  , io = require('socket.io-browserify')
-  , $ = require('jquery-browserify');
+  , io = require('socket.io-client')
+  , $ = require('jquery-browserify')
+  , socket;
 
 AppWindow = Ribcage.extend({
   template: require('./template.hbs')
@@ -26,8 +27,10 @@ AppWindow = Ribcage.extend({
 , authenticated: false
 , user: null
 , afterInit: function () {
-    var self = this
-      , socket = io.connect('/');
+    var self = this;
+
+    if(!socket)
+      socket = io.connect('/');
 
     this.accomplishments = new Accomplishments([]);
     this.accomplishments.on('add remove change', function () {
@@ -65,6 +68,10 @@ AppWindow = Ribcage.extend({
         lastAccomplishment.addComment(new Comment(Comment.prototype.parse(data)));
         self.scrollDown();
       }
+    });
+
+    socket.on('disconnect', function() {
+      socket.socket.reconnect();
     });
 
     $.ajax('/whoami', {
@@ -157,6 +164,8 @@ AppWindow = Ribcage.extend({
 , beforeClose: function () {
     this.accomplishments.off();
     delete this.accomplishments;
+
+    socket.removeAllListeners();
   }
 , noop: function (e) {
     if(e) {

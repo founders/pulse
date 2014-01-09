@@ -1,6 +1,6 @@
 {
   "name": "pulse-server",
-  "version": "0.2.3",
+  "version": "0.2.5",
   "description": "Do great things, one accomplishment at a time",
   "main": "server.js",
   "scripts": {
@@ -53,11 +53,11 @@
     "ribcage-back-button": "0.0.x",
     "jquery-browserify": "~1.8.1",
     "illinois-directory": "~0.0.5",
-    "socket.io-browserify": "~0.9.6",
     "uglify-js": "~2.4.8",
     "clean-css": "~2.0.6",
     "relative-date": "~1.1.1",
-    "canonical-host": "0.0.4"
+    "canonical-host": "0.0.4",
+    "socket.io-client": "~0.9.16"
   },
   "author": "Ben Ng (http://benng.me)",
   "contributors": [
