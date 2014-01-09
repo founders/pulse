@@ -10,9 +10,11 @@ AccomplishmentView = Ribcage.extend({
 , className: 'pulse-accomplishment'
 , loadingComments: false
 , events: {
-    'click .js-load-comments'	:	'loadComments',
-    'mouseover .header-right'	:	'loadRealTime',
-	'mouseleave .header-right'	:	'loadRelativeTime'
+    'click .js-load-comments'   :   'loadComments',
+    'mouseover .header-right'   :   'loadRealTimeHeader',
+    'mouseover .signature-left' :   'loadRealTimeComment',
+    'mouseleave .header-right'  :   'loadRelativeTimeHeader',
+    'mouseleave .signature-left':   'loadRelativeTimeComment'
   }
 
 , afterInit: function (opts) {
@@ -38,8 +40,8 @@ AccomplishmentView = Ribcage.extend({
     });
   }
 , context: function () {
-	var accomplish = this.accomplishment.toJSON();
-	accomplish.relativeDate = relDat(this.accomplishment.get('updated'));
+    var accomplish = this.accomplishment.toJSON();
+    accomplish.relativeDate = relDat(this.accomplishment.get('updated'));
     return {
       accomplishment: accomplish
     , comments: this.accomplishment.commentsLoaded() ? this.accomplishment.getComments() : []
@@ -59,14 +61,22 @@ AccomplishmentView = Ribcage.extend({
     if(this.comments)
       this.comments.off();
   }
-, loadRealTime: function() {
-	this.$('.relative-date').hide();
-	this.$('.real-hidden-date').show();
+, loadRealTimeHeader: function() {
+    this.$('.header-relative-date').hide();
+    this.$('.header-real-hidden-date').show();
   }
-, loadRelativeTime: function() {
-	this.$('.relative-date').show();
-	this.$('.real-hidden-date').hide();
-}
+, loadRelativeTimeHeader: function() {
+    this.$('.header-relative-date').show();
+    this.$('.header-real-hidden-date').hide();
+  }
+, loadRealTimeComment: function() {
+    this.$('.comment-relative-date').hide();
+    this.$('.comment-real-hidden-date').show();
+  }
+, loadRelativeTimeComment: function() {
+    this.$('.comment-relative-date').show();
+    this.$('.comment-real-hidden-date').hide();
+  }
 
 });
 

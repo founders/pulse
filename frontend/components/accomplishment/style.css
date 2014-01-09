@@ -14,7 +14,8 @@
   float: right;
 }
 
-.pulse-accomplishment .header-right .real-hidden-date {
+.pulse-accomplishment .header-real-hidden-date,
+.pulse-accomplishment .comment-real-hidden-date {
   display: none;
 }
 
@@ -32,6 +33,15 @@
 .pulse-accomplishment .signature {
   font-size: 1.2em;
   padding: 10px;
+}
+
+.pulse-accomplishment .signature .left {
+  float: left;
+}
+
+.pulse-accomplishment .signature .right {
+  float: right;
+  font-size: 0.9em;
 }
 
 .pulse-accomplishment .signature,
