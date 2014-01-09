@@ -1,6 +1,5 @@
 var Backbone = require('backbone')
   , Comments = require('../collections/comments')
-  , relative = require('relative-date')
   , Accomplishment;
 
 Accomplishment = Backbone.Model.extend({

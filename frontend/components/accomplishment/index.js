@@ -4,12 +4,14 @@
 var Ribcage = require('ribcage-view')
   , AccomplishmentView
   , relDat = require('relative-date')
-  , CommentView = require('../comment');
+  , CommentView = require('../comment')
+  , bind = require('lodash.bind');
 
 AccomplishmentView = Ribcage.extend({
   template: require('./template.hbs')
 , className: 'pulse-accomplishment'
 , loadingComments: false
+, intervalHandle: null
 , events: {
     'click .js-load-comments'   :   'loadComments',
     'mouseover .header-right'   :   'loadRealTimeHeader',
@@ -23,6 +25,7 @@ AccomplishmentView = Ribcage.extend({
       throw new Error('This view must be initialized with an Accomplishment model');
 
     this.accomplishment = opts.model;
+    this.updateDates = bind(this.updateDates, this);
 
     this.accomplishment.on('comments:initialLoad', function () {
       this.loadingComments = true;
@@ -38,6 +41,10 @@ AccomplishmentView = Ribcage.extend({
       self.render();
     });
   }
+, beforeRender: function() {
+  if (this.intervalHandle)
+    clearInterval(this.intervalHandle);
+  }
 , context: function () {
     var accomplish = this.accomplishment.toJSON();
     accomplish.relativeDate = relDat(this.accomplishment.get('updated'));
@@ -52,11 +59,19 @@ AccomplishmentView = Ribcage.extend({
     var self = this
     , target = this.$('.js-comment-container');
 
+    setInterval(this.updateDates, 60000);
+
     if(this.accomplishment.commentsLoaded())
       this.accomplishment.getComments().each(function (comment) {
         var commentView = new CommentView({model : comment});
         self.appendSubview(commentView, target);
       });
+  }
+, beforeClose: function() {
+  if (this.intervalHandle)
+    clearInterval(this.intervalHandle);
+  if(this.comments)
+      this.comments.off();
   }
 , insertComment: function (commentModel) {
     if(this.accomplishment.commentsLoaded())
@@ -65,10 +80,6 @@ AccomplishmentView = Ribcage.extend({
 , loadComments: function () {
     this.accomplishment.loadComments();
   }
-, beforeClose: function () {
-    if(this.comments)
-      this.comments.off();
-  }
 , loadRealTimeHeader: function() {
     this.$('.header-relative-date').hide();
     this.$('.header-real-hidden-date').show();
@@ -76,6 +87,9 @@ AccomplishmentView = Ribcage.extend({
 , loadRelativeTimeHeader: function() {
     this.$('.header-relative-date').show();
     this.$('.header-real-hidden-date').hide();
+  }
+, updateDates: function() {
+    this.$('.js-update-header-relative-date').text(relDat(this.accomplishment.get('updated')));
   }
 });
 
