@@ -1,6 +1,6 @@
 {
   "name": "pulse-server",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Do great things, one accomplishment at a time",
   "main": "server.js",
   "scripts": {
@@ -58,7 +58,7 @@
     "relative-date": "~1.1.1",
     "canonical-host": "0.0.4",
     "socket.io-client": "~0.9.16",
-    "autolinks": "https://github.com/ben-ng/node-autolinks/archive/patch-1.tar.gz",
+    "autolinks": "https://github.com/ben-ng/node-autolinks/archive/fixes.tar.gz",
     "marked": "~0.3.0"
   },
   "author": "Ben Ng (http://benng.me)",
