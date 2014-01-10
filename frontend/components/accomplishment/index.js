@@ -5,7 +5,12 @@ var Ribcage = require('ribcage-view')
   , AccomplishmentView
   , relDat = require('relative-date')
   , CommentView = require('../comment')
-  , bind = require('lodash.bind');
+  , bind = require('lodash.bind')
+  , marked = require('marked')
+  , autolinks = require('autolinks');
+marked.setOptions({
+  sanitize: true
+})
 
 AccomplishmentView = Ribcage.extend({
   template: require('./template.hbs')
@@ -48,6 +53,7 @@ AccomplishmentView = Ribcage.extend({
 , context: function () {
     var accomplish = this.accomplishment.toJSON();
     accomplish.relativeDate = relDat(this.accomplishment.get('updated'));
+    accomplish.text = marked(autolinks(accomplish.text,'markdown'));
     return {
       accomplishment: accomplish
     , noCommentsLoaded: this.accomplishment.comments === null && !this.loadingComments
