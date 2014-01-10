@@ -8,9 +8,10 @@ var Ribcage = require('ribcage-view')
   , bind = require('lodash.bind')
   , marked = require('marked')
   , autolinks = require('autolinks');
+
 marked.setOptions({
   sanitize: true
-})
+});
 
 AccomplishmentView = Ribcage.extend({
   template: require('./template.hbs')
@@ -51,11 +52,12 @@ AccomplishmentView = Ribcage.extend({
     clearInterval(this.intervalHandle);
   }
 , context: function () {
-    var accomplish = this.accomplishment.toJSON();
-    accomplish.relativeDate = relDat(this.accomplishment.get('updated'));
-    accomplish.text = marked(autolinks(accomplish.text,'markdown'));
+    var accomplishment = this.accomplishment.toJSON();
+    accomplishment.relativeDate = relDat(this.accomplishment.get('updated'));
+    accomplishment.text = marked(autolinks(accomplishment.text, 'markdown'));
+
     return {
-      accomplishment: accomplish
+      accomplishment: accomplishment
     , noCommentsLoaded: this.accomplishment.comments === null && !this.loadingComments
     , noComments: this.accomplishment.commentsLoaded() && this.accomplishment.getComments().length === 0
     , loadingComments: this.loadingComments

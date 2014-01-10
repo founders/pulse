@@ -4,7 +4,9 @@
 var Ribcage = require('ribcage-view')
   , CommentView
   , relDat = require('relative-date')
-  , bind = require('lodash.bind');
+  , bind = require('lodash.bind')
+  , marked = require('marked')
+  , autolinks = require('autolinks');
 
 CommentView = Ribcage.extend({
   template: require('./template.hbs')
@@ -18,7 +20,6 @@ CommentView = Ribcage.extend({
   }
 
 , afterInit: function (opts) {
-
     if(!opts || !opts.model)
       throw new Error('This view must be initialized with an Comment model');
 
@@ -32,6 +33,7 @@ CommentView = Ribcage.extend({
 , context: function () {
   var comment = this.comment.toJSON();
   comment.relativeDate = relDat(this.comment.get('updated'));
+  comment.text = marked(autolinks(comment.text, 'markdown'));
   return comment;
   }
 , afterRender: function() {
