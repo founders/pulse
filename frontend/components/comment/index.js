@@ -3,7 +3,6 @@
 */
 var Ribcage = require('ribcage-view')
   , CommentView
-  , relDat = require('relative-date')
   , bind = require('lodash.bind')
   , marked = require('marked')
   , autolinks = require('autolinks')
@@ -34,7 +33,7 @@ CommentView = Ribcage.extend({
 , context: function () {
   var comment = this.comment.toJSON();
   var dateInMoment = moment(this.comment.get('updated'));
-  comment.relativeDate = relativeDate = dateInMoment.fromNow();
+  comment.relativeDate = dateInMoment.fromNow();
   comment.fullDate = dateInMoment.format('ddd. MMM DDDo YYYY, h:mm:ss a');
   comment.text = marked(autolinks(comment.text, 'markdown'));
   return comment;
@@ -55,7 +54,7 @@ CommentView = Ribcage.extend({
     this.$('.comment-real-hidden-date').hide();
   }
 , updateDates: function() {
-    this.$('.js-update-relative-date').text(relDat(this.comment.get('updated')));
+    this.$('.js-update-relative-date').text(moment(this.accomplishment.get('updated')).fromNow());
   }
 });
 

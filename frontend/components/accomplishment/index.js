@@ -3,7 +3,6 @@
 */
 var Ribcage = require('ribcage-view')
   , AccomplishmentView
-  , relDat = require('relative-date')
   , CommentView = require('../comment')
   , bind = require('lodash.bind')
   , marked = require('marked')
@@ -57,6 +56,10 @@ AccomplishmentView = Ribcage.extend({
     var dateInMoment = moment(this.accomplishment.get('updated'));
     accomplishment.relativeDate = dateInMoment.fromNow();
     accomplishment.fullDate = dateInMoment.format('ddd. MMM DDDo YYYY, h:mm:ss a');
+    if (dateInMoment.year() != moment().year())
+      accomplishment.shortDate = dateInMoment.format('MM/DD/YY h:mm a');
+    else
+      accomplishment.shortDate = dateInMoment.format('MM/DD h:mm a');
     accomplishment.text = marked(autolinks(accomplishment.text, 'markdown'));
 
     return {
@@ -100,7 +103,7 @@ AccomplishmentView = Ribcage.extend({
     this.$('.header-real-hidden-date').hide();
   }
 , updateDates: function() {
-    this.$('.js-update-header-relative-date').text(relDat(this.accomplishment.get('updated')));
+    this.$('.js-update-header-relative-date').text(moment(this.accomplishment.get('updated')).fromNow());
   }
 });
 
