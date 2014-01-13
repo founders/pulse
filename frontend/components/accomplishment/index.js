@@ -7,7 +7,8 @@ var Ribcage = require('ribcage-view')
   , CommentView = require('../comment')
   , bind = require('lodash.bind')
   , marked = require('marked')
-  , autolinks = require('autolinks');
+  , autolinks = require('autolinks')
+  , moment = require('moment');
 
 marked.setOptions({
   sanitize: true
@@ -53,7 +54,9 @@ AccomplishmentView = Ribcage.extend({
   }
 , context: function () {
     var accomplishment = this.accomplishment.toJSON();
-    accomplishment.relativeDate = relDat(this.accomplishment.get('updated'));
+    var dateInMoment = moment(this.accomplishment.get('updated'));
+    accomplishment.relativeDate = dateInMoment.fromNow();
+    accomplishment.fullDate = dateInMoment.format('ddd. MMM DDDo YYYY, h:mm:ss a');
     accomplishment.text = marked(autolinks(accomplishment.text, 'markdown'));
 
     return {
