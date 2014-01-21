@@ -26,7 +26,7 @@ Accomplishment = Backbone.Model.extend({
     if(!this.comments)
       throw new Error('You need to loadComments before you can get comments');
 
-    return this.comments.toJSON();
+    return this.comments;
   }
 , loadComments: function () {
     var self = this;

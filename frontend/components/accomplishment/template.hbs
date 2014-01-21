@@ -6,16 +6,22 @@
   		  <strong>{{user.firstname}} {{user.lastname}}</strong> accomplished something!
   		</div>
   		<div class="header-right">
-  			{{ updated }}
+        <div class="header-relative-date js-update-header-relative-date">
+  			 {{ relativeDate }}
+        </div>
+        <div class ="header-real-hidden-date">
+          <span class="js-long-date">{{ fullDate }}</span>
+          <span class="js-short-date"> {{ shortDate }}</span>
+        </div>
   		</div>
     {{/with}}
   	</div>
   </h3>
-  <ul class="topcoat-list__container">
+  <ul class="topcoat-list__container js-comment-container">
     {{#with accomplishment}}
     <li class="accomplishment-body topcoat-list__item">
       <div class="text-holder">
-        {{text}}
+        {{{text}}}
       </div>
       <div class="signature">
         &mdash; {{user.firstname}} {{user.lastname}}
@@ -40,16 +46,5 @@
       No Comments
     </li>
     {{/if}}
-
-    {{#each comments}}
-    <li class="comment-body topcoat-list__item">
-      <div class="text-holder">
-        {{text}}
-      </div>
-      <div class="signature">
-        &mdash; {{user.firstname}} {{user.lastname}}
-      </div>
-    </li>
-    {{/each}}
   </ul>
 </div>
