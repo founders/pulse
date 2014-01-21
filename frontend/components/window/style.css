@@ -15,6 +15,21 @@
   -webkit-overflow-scrolling: touch;
 }
 
+.js-main-pane h2, 
+.js-mainpane h3, 
+.js-main-pane h4{
+  text-align: center;
+}
+
+.js-main-pane a{
+  color: black;
+  text-decoration: none;
+}
+
+.js-main-pane a:hover{
+  color:#ff8000;
+}
+
 .js-entry-pane,
 .js-register-overlay {
   position: absolute;
