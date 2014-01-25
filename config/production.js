@@ -5,7 +5,7 @@ config = {
     secret: process.env.SESSION_SECRET
   }
 , db: {
-    connectionString: process.env.DATABASE_URL
+    connectionString: process.env.MONGOHQ_UR
   }
 , redis: {
     host: process.env.REDIS_HOST
