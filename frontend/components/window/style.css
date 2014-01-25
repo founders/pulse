@@ -15,8 +15,8 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.js-main-pane h2, 
-.js-mainpane h3, 
+.js-main-pane h2,
+.js-mainpane h3,
 .js-main-pane h4{
   text-align: center;
 }
@@ -62,12 +62,15 @@
   bottom: var(entry-form-height);
 }
 
-.js-entry-pane .js-entry-input {
+.js-entry-pane .entry-input-wrap {
   position: absolute;
   top: 5px;
   left: 5px;
   right: 260px;
-  bottom: var(entry-form-height);
+}
+
+.entry-input-wrap .entry-input {
+  width: 100%;
 }
 
 .js-entry-pane .js-comment,
@@ -114,7 +117,7 @@
     height: 115px;
   }
 
-  .js-entry-pane .js-entry-input {
+  .js-entry-pane .entry-input-wrap {
     right: 5px;
   }
 
