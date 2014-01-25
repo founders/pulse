@@ -4,6 +4,7 @@
   "description": "Do great things, one accomplishment at a time",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "export NODE_ENV=testing && node test.js"
   },
   "repository": {
