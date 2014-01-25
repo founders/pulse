@@ -9,6 +9,7 @@ var express = require('express')
   , users = require('./routes/users')
   , accomplishments = require('./routes/accomplishments')
   , comments = require('./routes/comments')
+  , timeline = require('./routes/timeline')
   , reset = require('./routes/reset')
   , socketio = require('./middleware/socketio')
   , errorHandler = require('./middleware/error')
@@ -56,10 +57,13 @@ app.get('/accomplishments', accomplishments.list);
 // Create a new accomplishment
 app.post('/accomplishments', accomplishments.create);
 
-// Show all comments
+// Show comments after an accomplishment
 app.get('/comments', comments.list);
 // Create a comment
 app.post('/comments', comments.create);
+
+// Load the timeline
+app.get('/timeline', timeline.list);
 
 if(process.env.NODE_ENV != 'production')
   app.get('/reset', reset);

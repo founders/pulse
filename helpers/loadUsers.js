@@ -28,12 +28,17 @@ helper = function (models, cb) {
     });
 
     cb(null, _.map(models, function (a) {
-      return {
+      var ret = {
         id: a._id
       , text: a.text
       , updated: a.updated
       , user: userMap[a.user_id]
       };
+
+      if(a.c)
+        ret.c = true;
+
+      return ret;
     }));
   });
 };

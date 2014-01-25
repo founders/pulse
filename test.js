@@ -3,6 +3,7 @@ var tests = [
   , require('./tests/users')
   , require('./tests/accomplishments')
   , require('./tests/comments')
+  , require('./tests/timeline')
   , require('./tests/after')
   ]
 , async = require('async');
