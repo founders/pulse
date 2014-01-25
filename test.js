@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'testing';
+
 var tests = [
     require('./tests/before')
   , require('./tests/users')

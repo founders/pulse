@@ -8,5 +8,6 @@ module.exports = {
     User: require('./user')
   , Accomplishment: require('./accomplishment')
   , Comment: require('./comment')
+  , Hashtag: require('./hashtag')
   }
 };

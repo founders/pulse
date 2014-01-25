@@ -9,6 +9,7 @@ var express = require('express')
   , users = require('./routes/users')
   , accomplishments = require('./routes/accomplishments')
   , comments = require('./routes/comments')
+  , hashtags = require('./routes/hashtags')
   , reset = require('./routes/reset')
   , socketio = require('./middleware/socketio')
   , errorHandler = require('./middleware/error')
@@ -60,6 +61,9 @@ app.post('/accomplishments', accomplishments.create);
 app.get('/comments', comments.list);
 // Create a comment
 app.post('/comments', comments.create);
+
+// Show all hashtags
+app.get('/hashtags', hashtags.list);
 
 if(process.env.NODE_ENV != 'production')
   app.get('/reset', reset);

@@ -1,9 +1,11 @@
 var Comment = require('../db').models.Comment
   , Accomplishment = require('../db').models.Accomplishment
+  , Hashtag = require('../db').models.Hashtag
   , User = require('../db').models.User
   , async = require('async')
   , loadUsers = require('../helpers/loadUsers')
-  , _ = require('lodash');
+  , _ = require('lodash')
+  , map = require('lodash.map');
 
 exports.list = function(req, res, next) {
   var gt
@@ -89,28 +91,55 @@ exports.create = function(req, res, next){
         text: req.body.text
       , user_id: req.session.user_id
       }, function (err, data) {
-        var dat;
+        var dat
+          , re = /#\S+/g
+          , hashtags
+          , makeHash
+          , finish;
+
+        makeHash = function (e) {
+          return {
+            name: e.substring(1)
+          , accomplishment_id: data._id
+          };
+        };
+
+        finish = function () {
+          dat = {
+            id: data._id
+          , text: data.text
+          , user_id: data.user_id
+          , updated: data.updated
+          };
+
+          res.send(dat);
+
+          if(res.io) {
+            dat.user = {
+              id: user._id
+            , firstname: user.firstname
+            , lastname: user.lastname
+            };
+            delete dat.user_id;
+            res.io.broadcast('comment', dat);
+          }
+        };
 
         if(err)
           return next(err);
 
-        dat = {
-          id: data._id
-        , text: data.text
-        , user_id: data.user_id
-        , updated: data.updated
-        };
-
-        res.send(dat);
-
-        if(res.io) {
-          dat.user = {
-            id: user._id
-          , firstname: user.firstname
-          , lastname: user.lastname
-          };
-          delete dat.user_id;
-          res.io.broadcast('comment', dat);
+        hashtags = data.text.match(re);
+        if(hashtags === null){
+          finish();
+        }
+        else {
+          Hashtag.create(
+            map(hashtags, makeHash)
+          , function (err) {
+            if(err)
+              return next(err);
+            finish();
+          });
         }
       });
     });
