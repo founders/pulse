@@ -27,7 +27,7 @@ tests.push(function (done) {
       assert.equal(res.body.length, 2
         , 'There should be two results');
 
-      assert.equal(res.body[0].text, 'I made the user tests succeed!'
+      assert.equal(res.body[0].text, 'I made the user #tests succeed!'
         , 'Text should be about making tests succeed');
       assert.equal(res.body[0].user.firstname, 'Bobby'
         , 'First name should be Bobby');
@@ -36,7 +36,7 @@ tests.push(function (done) {
       assert.ok(res.body[0].updated, 'Updated should not be null');
 
       assert.ok(res.body[1].c, 'The comment flag should be true');
-      assert.equal(res.body[1].text, 'Great job!'
+      assert.equal(res.body[1].text, 'Great job on #tests'
         , 'Text should be about doing a great job');
       assert.equal(res.body[1].user.firstname, 'Bobby'
         , 'First name should be Bobby');
