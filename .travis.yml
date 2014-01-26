@@ -1,16 +1,11 @@
----
 services:
-  - mongodb
-  - redis
-
+- mongodb
+- redis
 language: node_js
 deploy:
-  provider: nodejitsu
-  user: "ben-ng"
+  provider: heroku
   api_key:
-    secure: |-
-      RbLoFJ1V0nLSUvR+lPGEI1HuhTiD+RRuQDb6ij5U7q1sFyhpKrWcMllP0oXL
-      G4c85IQlT9D5WNYlOtlJeXEc0+lPeKaCjEUQSPMycC77E1GUVHRRd7d4DbTM
-      d42Zg/Tx0kV8fVH/jcHqXzEy0LfiqLiyBHtuA3FBuM7wCWmLCaA=
+    secure: C7Hq7Vc3pVqJ5DxcXws5NSHR+zq35z/1Em7ZPqF3kBaiWl6twgOeZqnM+No+tsd+ZNpngtLosgUjLGNGaEtFwI3OoEKJHKx8ztdrLzjEOQMCuC9I3W5jplyU+pVCBWnTFX/Hs0AEGvVS9ns0Ycmtlu1FuWZYSJFDinr4mwegUN0=
+  app: founders-pulse
 node_js:
-- "0.10"
+- '0.10'
