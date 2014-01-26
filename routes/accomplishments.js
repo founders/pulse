@@ -2,7 +2,7 @@ var Accomplishment = require('../db').models.Accomplishment
   , Hashtag = require('../db').models.Hashtag
   , User = require('../db').models.User
   , loadUsers = require('../helpers/loadUsers')
-  , map = require('lodash.map');
+  , map = require('lodash').map;
 
 exports.list = function(req, res, next){
   Accomplishment

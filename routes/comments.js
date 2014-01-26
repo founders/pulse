@@ -4,8 +4,7 @@ var Comment = require('../db').models.Comment
   , User = require('../db').models.User
   , async = require('async')
   , loadUsers = require('../helpers/loadUsers')
-  , _ = require('lodash')
-  , map = require('lodash.map');
+  , _ = require('lodash');
 
 exports.list = function(req, res, next) {
   var gt
@@ -134,7 +133,7 @@ exports.create = function(req, res, next){
         }
         else {
           Hashtag.create(
-            map(hashtags, makeHash)
+            _.map(hashtags, makeHash)
           , function (err) {
             if(err)
               return next(err);

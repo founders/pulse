@@ -1,5 +1,5 @@
 var Hashtag = require('../db').models.Hashtag
-  , map = require('lodash.map');
+  , map = require('lodash').map;
 
 exports.list = function(req, res, next){
   Hashtag
