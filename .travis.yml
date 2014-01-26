@@ -1,11 +1,15 @@
+---
+node_js:
+- "0.10"
 services:
 - mongodb
 - redis
-language: node_js
 deploy:
+  app: founders-pulse
   provider: heroku
   api_key:
-    secure: C7Hq7Vc3pVqJ5DxcXws5NSHR+zq35z/1Em7ZPqF3kBaiWl6twgOeZqnM+No+tsd+ZNpngtLosgUjLGNGaEtFwI3OoEKJHKx8ztdrLzjEOQMCuC9I3W5jplyU+pVCBWnTFX/Hs0AEGvVS9ns0Ycmtlu1FuWZYSJFDinr4mwegUN0=
-  app: founders-pulse
-node_js:
-- '0.10'
+    secure: |-
+      DiEmEKloDfW8/x4vLtaQjSZ7rnZ7YlxA0hbAP2piVvuKIm/mnWzUOEstvtOE
+      lkcMDPWoEds5+qfMJsPf6fPCWbtl/MCqq3jdmSitVqfXLpMaDqwKte3gpnEO
+      2wwgF9JLg7jD4fmy5HLAJfwwU0gHdBgjzygZSr41nQctqlgXVU0=
+language: node_js
