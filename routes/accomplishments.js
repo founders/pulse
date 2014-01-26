@@ -1,6 +1,8 @@
 var Accomplishment = require('../db').models.Accomplishment
+  , Hashtag = require('../db').models.Hashtag
   , User = require('../db').models.User
-  , loadUsers = require('../helpers/loadUsers');
+  , loadUsers = require('../helpers/loadUsers')
+  , map = require('lodash.map');
 
 exports.list = function(req, res, next){
   Accomplishment
@@ -44,28 +46,55 @@ exports.create = function(req, res, next){
         text: req.body.text
       , user_id: req.session.user_id
       }, function (err, data) {
-        var dat;
+        var dat
+          , re = /#\S+/g
+          , hashtags
+          , finish
+          , makeHash;
+
+        makeHash = function (e) {
+          return {
+            name: e.substring(1)
+          , accompishment_id: data._id
+          };
+        };
+
+        finish = function () {
+          dat = {
+            id: data._id
+          , text: data.text
+          , user_id: data.user_id
+          , updated: data.updated
+          };
+
+          res.send(dat);
+
+          if(res.io) {
+            dat.user = {
+              id: user._id
+            , firstname: user.firstname
+            , lastname: user.lastname
+            };
+            delete dat.user_id;
+            res.io.broadcast('accomplishment', dat);
+          }
+        };
 
         if(err)
           return next(err);
 
-        dat = {
-          id: data._id
-        , text: data.text
-        , user_id: data.user_id
-        , updated: data.updated
-        };
-
-        res.send(dat);
-
-        if(res.io) {
-          dat.user = {
-            id: user._id
-          , firstname: user.firstname
-          , lastname: user.lastname
-          };
-          delete dat.user_id;
-          res.io.broadcast('accomplishment', dat);
+        hashtags = data.text.match(re);
+        if (hashtags === null){
+          finish();
+        }
+        else {
+          Hashtag.create(
+            map(hashtags, makeHash)
+          , function (err) {
+            if(err)
+              return next(err);
+            finish();
+          });
         }
       });
     });

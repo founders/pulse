@@ -19,10 +19,11 @@ tests.push(function (done) {
     .expect('Content-Type', /json/)
     .expect(200)
     .end(function (err, res) {
+      console.log(res.body);
       if(err)
         return done(err);
 
-      assert.equal(res.body.log.length, 3, 'There should be three dropped collections');
+      assert.equal(res.body.log.length, 4, 'There should be four dropped collections');
 
       done();
     });

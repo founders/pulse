@@ -10,6 +10,7 @@ var express = require('express')
   , accomplishments = require('./routes/accomplishments')
   , comments = require('./routes/comments')
   , timeline = require('./routes/timeline')
+  , hashtags = require('./routes/hashtags')
   , reset = require('./routes/reset')
   , socketio = require('./middleware/socketio')
   , errorHandler = require('./middleware/error')
@@ -61,6 +62,9 @@ app.post('/accomplishments', accomplishments.create);
 app.get('/comments', comments.list);
 // Create a comment
 app.post('/comments', comments.create);
+
+// Show all hashtags
+app.get('/hashtags', hashtags.list);
 
 // Load the timeline
 app.get('/timeline', timeline.list);

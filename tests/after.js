@@ -22,7 +22,7 @@ tests.push(function (done) {
       if(err)
         return done(err);
 
-      assert.equal(res.body.log.length, 3, 'There should be three dropped collections');
+      assert.equal(res.body.log.length, 4, 'There should be four dropped collections');
 
       done();
     });
