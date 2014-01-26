@@ -153,8 +153,8 @@ AppWindow = Ribcage.extend({
     }
   }
 , beforeClose: function () {
-    this.accomplishments.off();
-    delete this.accomplishments;
+    this.timeline.off();
+    delete this.timeline;
 
     socket.removeAllListeners();
   }
