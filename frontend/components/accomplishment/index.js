@@ -3,7 +3,6 @@
 */
 var Ribcage = require('ribcage-view')
   , AccomplishmentView
-  , CommentView = require('../comment')
   , bind = require('lodash.bind')
   , marked = require('marked')
   , autolinks = require('autolinks')
@@ -17,39 +16,22 @@ AccomplishmentView = Ribcage.extend({
   template: require('./template.hbs')
 , className: 'pulse-accomplishment'
 , loadingComments: false
-, intervalHandle: null
 , events: {
-    'click .js-load-comments'   :   'loadComments',
-    'mouseover .header-right'   :   'loadRealTimeHeader',
-    'mouseleave .header-right'  :   'loadRelativeTimeHeader'
+    'mouseover .signature-left'   :   'loadRealTimeHeader',
+    'mouseleave .signature-left'  :   'loadRelativeTimeHeader'
   }
-
+, intervalHandle: null
 , afterInit: function (opts) {
-    var self = this;
-
     if(!opts || !opts.model)
       throw new Error('This view must be initialized with an Accomplishment model');
 
     this.accomplishment = opts.model;
-    this.updateDates = bind(this.updateDates, this);
 
-    this.accomplishment.on('comments:initialLoad', function () {
-      this.loadingComments = true;
-      self.render();
-    });
-
-    this.accomplishment.on('comments:sync', function () {
-      self.loadingComments = false;
-      self.render();
-    });
-
-    this.accomplishment.on('comments:add', function () {
-      self.render();
-    });
+    this.listenTo(this.accomplishment, 'change', this.render, this);
   }
 , beforeRender: function() {
-  if (this.intervalHandle)
-    clearInterval(this.intervalHandle);
+    if (this.intervalHandle)
+      clearInterval(this.intervalHandle);
   }
 , context: function () {
     var accomplishment = this.accomplishment.toJSON();
@@ -62,48 +44,25 @@ AccomplishmentView = Ribcage.extend({
       accomplishment.shortDate = dateInMoment.format('MM/DD h:mm a');
     accomplishment.text = marked(autolinks(accomplishment.text, 'markdown'));
 
-    return {
-      accomplishment: accomplishment
-    , noCommentsLoaded: this.accomplishment.comments === null && !this.loadingComments
-    , noComments: this.accomplishment.commentsLoaded() && this.accomplishment.getComments().length === 0
-    , loadingComments: this.loadingComments
-    };
+    return accomplishment;
   }
 , afterRender: function() {
-    var self = this
-    , target = this.$('.js-comment-container');
-
-    setInterval(this.updateDates, 60000);
-
-    if(this.accomplishment.commentsLoaded())
-      this.accomplishment.getComments().each(function (comment) {
-        var commentView = new CommentView({model : comment});
-        self.appendSubview(commentView, target);
-      });
+    this.intervalHandle = setInterval(bind(this.updateDates, this), 60000);
   }
 , beforeClose: function() {
   if (this.intervalHandle)
     clearInterval(this.intervalHandle);
-  if(this.comments)
-      this.comments.off();
-  }
-, insertComment: function (commentModel) {
-    if(this.accomplishment.commentsLoaded())
-      this.accomplishment.addComment(commentModel);
-  }
-, loadComments: function () {
-    this.accomplishment.loadComments();
   }
 , loadRealTimeHeader: function() {
-    this.$('.header-relative-date').hide();
-    this.$('.header-real-hidden-date').show();
+    this.$('.signature-relative-date').hide();
+    this.$('.signature-real-hidden-date').show();
   }
 , loadRelativeTimeHeader: function() {
-    this.$('.header-relative-date').show();
-    this.$('.header-real-hidden-date').hide();
+    this.$('.signature-relative-date').show();
+    this.$('.signature-real-hidden-date').hide();
   }
 , updateDates: function() {
-    this.$('.js-update-header-relative-date').text(moment(this.accomplishment.get('updated')).fromNow());
+    this.$('.js-update-signature-relative-date').text(moment(this.accomplishment.get('updated')).fromNow());
   }
 });
 

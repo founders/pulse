@@ -1,0 +1,50 @@
+.pulse-comment {
+  background-color: #EFEFEF;
+  padding: 5px;
+  margin: 5px;
+}
+
+
+.pulse-comment .signature-wrap {
+  overflow: auto;
+}
+
+.pulse-comment .signature-left,
+.pulse-comment .signature-right {
+  display: inline;
+}
+
+.pulse-comment .signature-left {
+  float: left;
+}
+
+.pulse-comment .signature-right {
+  float: right;
+}
+
+.pulse-comment .signature-real-hidden-date {
+  display: none;
+}
+
+.pulse-comment .signature-real-hidden-date .js-long-date {
+  display: none;
+}
+
+@media(min-width: 480px) {
+  .pulse-comment .signature-real-hidden-date .js-short-date {
+    display: none;
+  }
+
+  .pulse-comment .signature-real-hidden-date .js-long-date {
+    display: inline;
+  }
+}
+
+.pulse-comment .comment-body {
+  padding: 10px 0;
+}
+
+.pulse-comment .text-holder {
+  font-size: 1.2em;
+  padding: 0 10px;
+}

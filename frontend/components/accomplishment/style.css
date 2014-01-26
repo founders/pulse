@@ -1,34 +1,44 @@
+.pulse-accomplishment {
+  background-color: #FFF;
+  padding: 5px;
+  margin: 5px;
+}
+
 .pulse-accomplishment h3 {
   padding: 5px;
 }
 
-.pulse-accomplishment .wrap {
+.pulse-accomplishment .signature-wrap {
   overflow: auto;
 }
 
-.pulse-accomplishment .header-left {
+.pulse-accomplishment .signature-left,
+.pulse-accomplishment .signature-right {
+  display: inline;
+}
+
+.pulse-accomplishment .signature-left {
   float: left;
 }
 
-.pulse-accomplishment .header-right {
+.pulse-accomplishment .signature-right {
   float: right;
 }
 
-.pulse-accomplishment .header-real-hidden-date,
-.pulse-accomplishment .comment-real-hidden-date {
+.pulse-accomplishment .signature-real-hidden-date {
   display: none;
 }
 
-.pulse-accomplishment .header-real-hidden-date .js-long-date {
+.pulse-accomplishment .signature-real-hidden-date .js-long-date {
   display: none;
 }
 
 @media(min-width: 480px) {
-  .pulse-accomplishment .header-real-hidden-date .js-short-date {
+  .pulse-accomplishment .signature-real-hidden-date .js-short-date {
     display: none;
   }
 
-  .pulse-accomplishment .header-real-hidden-date .js-long-date {
+  .pulse-accomplishment .signature-real-hidden-date .js-long-date {
     display: inline;
   }
 }
@@ -37,37 +47,7 @@
   padding: 10px 0;
 }
 
-.pulse-accomplishment .comment-body {
-  border-left: 10px solid #777;
-  background-color: #FFF;
-  padding: .1rem;
-}
-
-.pulse-accomplishment .text-holder,
-.pulse-accomplishment .signature {
+.pulse-accomplishment .text-holder {
   font-size: 1.2em;
   padding: 10px;
-}
-
-.pulse-accomplishment .signature .left {
-  float: left;
-}
-
-.pulse-accomplishment .signature .right {
-  float: right;
-  font-size: 0.9em;
-}
-
-.pulse-accomplishment .signature,
-.pulse-accomplishment .js-load-comments,
-.pulse-accomplishment .loading-comments-status {
-  font-size: .8em;
-  text-align: right;
-}
-
-.pulse-accomplishment .js-load-comments,
-.pulse-accomplishment .loading-comments-status {
-  text-align: center;
-  padding: .3rem;
-  background-color: #EEE;
 }

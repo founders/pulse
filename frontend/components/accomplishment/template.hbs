@@ -1,50 +1,17 @@
-<div class="topcoat-list">
-  <h3 class="topcoat-list__header">
-  	<div class="wrap">
-    {{#with accomplishment}}
-      <div class="header-left">
-  		  <strong>{{user.firstname}} {{user.lastname}}</strong> accomplished something!
-  		</div>
-  		<div class="header-right">
-        <div class="header-relative-date js-update-header-relative-date">
-  			 {{ relativeDate }}
-        </div>
-        <div class ="header-real-hidden-date">
-          <span class="js-long-date">{{ fullDate }}</span>
-          <span class="js-short-date"> {{ shortDate }}</span>
-        </div>
-  		</div>
-    {{/with}}
-  	</div>
-  </h3>
-  <ul class="topcoat-list__container js-comment-container">
-    {{#with accomplishment}}
-    <li class="accomplishment-body topcoat-list__item">
-      <div class="text-holder">
-        {{{text}}}
-      </div>
-      <div class="signature">
-        &mdash; {{user.firstname}} {{user.lastname}}
-      </div>
-    </li>
-    {{/with}}
-
-    {{#if noCommentsLoaded}}
-    <li class="js-load-comments topcoat-list__item">
-      Load Comments
-    </li>
-    {{/if}}
-
-    {{#if loadingComments}}
-    <li class="loading-comments-status topcoat-list__item">
-      Loading Comments..
-    </li>
-    {{/if}}
-
-    {{#if noComments}}
-    <li class="loading-comments-status topcoat-list__item">
-      No Comments
-    </li>
-    {{/if}}
-  </ul>
+<div class="text-holder">
+  {{{text}}}
+</div>
+<div class="signature-wrap">
+  <div class="signature-left">
+    <div class="signature-relative-date js-update-signature-relative-date">
+     {{ relativeDate }}
+    </div>
+    <div class ="signature-real-hidden-date">
+      <span class="js-long-date">{{ fullDate }}</span>
+      <span class="js-short-date"> {{ shortDate }}</span>
+    </div>
+  </div>
+  <div class="signature-right">
+    <strong>{{user.firstname}} {{user.lastname}}</strong>
+  </div>
 </div>

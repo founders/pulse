@@ -15,7 +15,7 @@ exports.list = function(req, res, next) {
         .find({})
         .select('text user_id updated')
         .limit(20)
-        .sort('-updated')
+        .sort('updated')
         .exec(function (err, data) {
           if(err)
             return done(err);
@@ -34,7 +34,6 @@ exports.list = function(req, res, next) {
 
       Comment
       .find({updated: {$gte: accomplishments[0].updated}})
-      .sort({updated: -1})
       .exec(function (err, data) {
           if(err)
             return done(err);

@@ -7,8 +7,9 @@ var Ribcage = require('ribcage-view')
   , User = require('../../models/user')
   , Accomplishment = require('../../models/accomplishment')
   , Comment = require('../../models/comment')
-  , Accomplishments = require('../../collections/accomplishments')
+  , Timeline = require('../../collections/timeline')
   , AccomplishmentView = require('../accomplishment')
+  , CommentView = require('../comment')
   , AppWindow
   , io = require('socket.io-client')
   , $ = require('jquery-browserify')
@@ -32,42 +33,23 @@ AppWindow = Ribcage.extend({
     if(!socket)
       socket = io.connect('/');
 
-    this.accomplishments = new Accomplishments([]);
-    this.accomplishments.on('add remove change', function () {
+    this.timeline = new Timeline([]);
+    this.timeline.on('add remove change', function () {
       self.render();
       self.scrollDown();
     }, this);
-    this.accomplishments.on('error', App.handleError);
+    this.timeline.on('error', App.handleError);
 
-    // Once accomplishments are loaded for the first time
-    // , load the last one's comments
-    this.accomplishments.once('sync', function () {
-      if(self.accomplishments.length) {
-        var last = self.accomplishments.last();
-
-        // After the initial comment load completes it should scroll down
-        last.once('comments:sync', self.scrollDown, self);
-
-        last.loadComments();
-      }
-    });
-
-    this.accomplishments.fetch();
+    this.timeline.fetch();
 
     socket.on('accomplishment', function (data) {
       var accomplishment = new Accomplishment(Accomplishment.prototype.parse(data));
-
-      self.accomplishments.add(accomplishment);
-      accomplishment.loadComments();
+      self.timeline.add(accomplishment);
     });
 
     socket.on('comment', function (data) {
-      var lastAccomplishment = self.accomplishments.last();
-
-      if(lastAccomplishment.commentsLoaded()) {
-        lastAccomplishment.addComment(new Comment(Comment.prototype.parse(data)));
-        self.scrollDown();
-      }
+      var comment = new Comment(Comment.prototype.parse(data));
+      self.timeline.add(comment);
     });
 
     socket.on('disconnect', function() {
@@ -88,18 +70,27 @@ AppWindow = Ribcage.extend({
     });
   }
 , scrollDown: function () {
-    var mainPane = this.$('.js-main-pane');
-    mainPane.scrollTop(mainPane[0].scrollHeight);
+    var accomplishmentPane = this.$('.js-accomplishment-pane')
+      , commentPane = this.$('.js-comment-pane');
+
+    accomplishmentPane.scrollTop(accomplishmentPane[0].scrollHeight);
+    commentPane.scrollTop(commentPane[0].scrollHeight);
   }
 , afterRender: function () {
     var self = this
-      , mainPane = this.$('.js-main-pane');
+      , accomplishmentPane = this.$('.js-accomplishment-pane')
+      , commentPane = this.$('.js-comment-pane');
 
     this.$('.invalid-hint').hide();
     this.$('.incomplete-hint').hide();
 
-    this.accomplishments.each(function (accomplishment) {
-      self.appendSubview(new AccomplishmentView({model: accomplishment}), mainPane);
+    this.timeline.each(function (model) {
+      if(model._name === 'Accomplishment')
+        self.appendSubview(new AccomplishmentView({model: model}), accomplishmentPane);
+      else {
+        self.appendSubview(new CommentView({model: model}), accomplishmentPane);
+        self.appendSubview(new CommentView({model: model}), commentPane);
+      }
     });
 
     this.$('.js-entry-input').focus();

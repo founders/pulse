@@ -3,10 +3,85 @@
   var-entry-form-height: 50px;
 }
 
-.js-main-pane {
+.site-header {
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+}
+
+.site-header .header-left,
+.site-header .header-right {
+  position: absolute;
+  top: 0;
+  left: 30%;
+  right: 30%;
+  text-align: center;
+}
+
+.site-header .header-left {
+  background-color: #ff8000;
+}
+
+.site-header .header-right {
+  left: 70%;
+  right: 0;
+}
+
+.site-header h2 {
+  margin: 10px;
+}
+
+.header-left h2 {
+  color: #FFF;
+}
+
+.js-info-pane {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 70%;
+  bottom: 80px;
+  background-color: #000;
+}
+
+.js-info-pane h1 {
+  font-family: Helvetica, sans-serif;
+  color: #FFF;
+  font-size: 4em;
+  font-weight: lighter;
+  margin: 10px;
+}
+
+.js-info-pane p {
+  color: #FFF;
+  padding: 10px;
+  font-weight: lighter;
+}
+
+.js-accomplishment-pane {
+  position: absolute;
+  top: 50px;
+  left: 30%;
+  right: 30%;
+  bottom: 80px;
+  z-index: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #ff8000;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Only show the comments in the left pane when in responsive mode */
+.js-accomplishment-pane .pulse-comment {
+  visibility: hidden;
+  display: none;
+}
+
+.js-comment-pane {
+  position: absolute;
+  top: 50px;
+  left: 70%;
   right: 0;
   bottom: 80px;
   z-index: 0;
@@ -107,10 +182,40 @@
   border: 1px solid #ec514e;
 }
 
-@media(max-width: 480px) {
-  .js-main-pane {
-    bottom: 115px;
+@media(max-width: 700px) {
+  .site-header,
+  .js-info-pane {
+    display: none;
+    visibility: hidden;
   }
+
+  .js-accomplishment-pane {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 115px;
+    z-index: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: transparent;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .js-accomplishment-pane .pulse-accomplishment {
+    background-color: #ff8000;
+  }
+
+  .js-accomplishment-pane .pulse-comment {
+    visibility: visible;
+    display: block;
+  }
+
+  .js-comment-pane {
+    visibility: hidden;
+    display: none;
+  }
+
   .js-entry-pane,
   .js-entry-pane form,
   .js-register-overlay {

@@ -3,6 +3,7 @@
 @import "ribcage-back-button";
 @import "./components/register/style.css";
 @import "./components/accomplishment/style.css";
+@import "./components/comment/style.css";
 @import "./components/window/style.css";
 
 body,
