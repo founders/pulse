@@ -1,6 +1,6 @@
 {
   "name": "pulse-server",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Do great things, one accomplishment at a time",
   "main": "server.js",
   "scripts": {
