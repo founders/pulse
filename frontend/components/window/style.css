@@ -141,7 +141,7 @@
   position: absolute;
   top: 5px;
   left: 5px;
-  right: 224px;
+  right: 230px;
 }
 
 .entry-input-wrap .entry-input {
@@ -156,7 +156,7 @@
   width: 130px;
 }
 .js-entry-pane .js-comment {
-  width: 78px;
+  width: 84px;
   right: 140px;
 }
 
