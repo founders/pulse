@@ -12,7 +12,7 @@ helper = function (models, cb) {
 
   User
     .find({$or: orCond})
-    .select('firstname lastname')
+    .select('firstname lastname email')
     .exec(function (err, users) {
     if(err)
       return cb(err);
@@ -24,6 +24,7 @@ helper = function (models, cb) {
         id: u._id
       , firstname: u.firstname
       , lastname: u.lastname
+      , email: u.email
       };
     });
 

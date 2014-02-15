@@ -14,8 +14,10 @@ CommentView = Ribcage.extend({
 , loadingComments: false
 , intervalHandle: null
 , events: {
-    'mouseover .signature-left' :   'loadRealTimeComment',
-    'mouseleave .signature-left':   'loadRelativeTimeComment'
+    'mouseover .signature-left' :   'loadRealTimeComment'
+    , 'mouseleave .signature-left':   'loadRelativeTimeComment'
+    , 'mouseover .signature-right'  :   'loadNetId'
+    , 'mouseleave .signature-right' :   'loadFullName'
   }
 
 , afterInit: function (opts) {
@@ -40,6 +42,8 @@ CommentView = Ribcage.extend({
     comment.shortDate = dateInMoment.format('MM/DD h:mm a');
 
   comment.text = marked(autolinks(comment.text, 'markdown'));
+  comment.netId = this.comment.get('user').email.split('@')[0];
+  
   return comment;
   }
 , afterRender: function() {
@@ -56,6 +60,14 @@ CommentView = Ribcage.extend({
 , loadRelativeTimeComment: function() {
     this.$('.signature-relative-date').show();
     this.$('.signature-real-hidden-date').hide();
+  }
+, loadNetId: function() {
+    this.$('.signature-user-name').hide();
+    this.$('.signature-netid-hidden').show();
+  }
+, loadFullName: function() {
+    this.$('.signature-user-name').show();
+    this.$('.signature-netid-hidden').hide();
   }
 , updateDates: function() {
     this.$('.js-update-relative-date').text(moment(this.comment.get('updated')).fromNow());
