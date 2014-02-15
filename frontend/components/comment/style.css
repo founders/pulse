@@ -22,7 +22,8 @@
   float: right;
 }
 
-.pulse-comment .signature-real-hidden-date {
+.pulse-comment .signature-real-hidden-date
+, .pulse-comment .signature-netid-hidden {
   display: none;
 }
 

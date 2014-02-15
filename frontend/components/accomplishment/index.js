@@ -17,8 +17,10 @@ AccomplishmentView = Ribcage.extend({
 , className: 'pulse-accomplishment'
 , loadingComments: false
 , events: {
-    'mouseover .signature-left'   :   'loadRealTimeHeader',
-    'mouseleave .signature-left'  :   'loadRelativeTimeHeader'
+    'mouseover .signature-left'   :   'loadRealTimeHeader'
+    , 'mouseleave .signature-left'  :   'loadRelativeTimeHeader'
+    , 'mouseover .signature-right'  :   'loadNetId'
+    , 'mouseleave .signature-right' :   'loadFullName'
   }
 , intervalHandle: null
 , afterInit: function (opts) {
@@ -43,6 +45,8 @@ AccomplishmentView = Ribcage.extend({
     else
       accomplishment.shortDate = dateInMoment.format('MM/DD h:mm a');
     accomplishment.text = marked(autolinks(accomplishment.text, 'markdown'));
+    console.log(this.accomplishment.get('user').email.split('@')[0]);
+    accomplishment.netId = this.accomplishment.get('user').email.split('@')[0];
 
     return accomplishment;
   }
@@ -60,6 +64,14 @@ AccomplishmentView = Ribcage.extend({
 , loadRelativeTimeHeader: function() {
     this.$('.signature-relative-date').show();
     this.$('.signature-real-hidden-date').hide();
+  }
+, loadNetId: function() {
+    this.$('.signature-user-name').hide();
+    this.$('.signature-netid-hidden').show();
+  }
+, loadFullName: function() {
+    this.$('.signature-user-name').show();
+    this.$('.signature-netid-hidden').hide();
   }
 , updateDates: function() {
     this.$('.js-update-signature-relative-date').text(moment(this.accomplishment.get('updated')).fromNow());

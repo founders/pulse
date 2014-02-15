@@ -25,7 +25,8 @@
   float: right;
 }
 
-.pulse-accomplishment .signature-real-hidden-date {
+.pulse-accomplishment .signature-real-hidden-date,
+.pulse-accomplishment .signature-netid-hidden {
   display: none;
 }
 
