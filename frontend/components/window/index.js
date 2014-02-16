@@ -36,22 +36,30 @@ AppWindow = Ribcage.extend({
     this.resetFormStash();
 
     this.timeline = new Timeline([]);
-    this.timeline.on('add remove change', function () {
-      self.render();
-      self.scrollDown();
-    }, this);
     this.timeline.on('error', App.handleError);
 
-    this.timeline.fetch();
+    this.timeline.fetch({
+      success: function () {
+        self.render();
+      }
+    });
 
     socket.on('accomplishment', function (data) {
-      var accomplishment = new Accomplishment(Accomplishment.prototype.parse(data));
+      var accomplishment = new Accomplishment(Accomplishment.prototype.parse(data))
+        , accomplishmentPane = self.$('.js-accomplishment-pane');
+
       self.timeline.add(accomplishment);
+      self.prependSubview(new AccomplishmentView({model: accomplishment}), accomplishmentPane);
+      self.scrollDown();
     });
 
     socket.on('comment', function (data) {
-      var comment = new Comment(Comment.prototype.parse(data));
+      var comment = new Comment(Comment.prototype.parse(data))
+        , commentPane = self.$('.js-chat-pane');
+
       self.timeline.add(comment);
+      self.appendSubview(new CommentView({model: comment}), commentPane);
+      self.scrollDown();
     });
 
     socket.on('disconnect', function() {
@@ -128,8 +136,8 @@ AppWindow = Ribcage.extend({
     this.$('.js-chat-input').prop('disabled', true);
 
     newComment.on('error', function () {
-      self.$('.js-chat-input').prop('disabled', false);
-      self.$('.js-chat-input').val(tempSave);
+      self.$('.js-chat-input').prop('disabled', false)
+                              .val(tempSave);
     });
 
     tempSave = this.$('.js-chat-input').val();
@@ -138,7 +146,10 @@ AppWindow = Ribcage.extend({
 
     newComment.save({}, {
       success: function () {
-        self.$('.js-chat-input').prop('disabled', false);
+        self.$('.js-chat-input')
+            .prop('disabled', false)
+            .val('')
+            .focus();
       }
     });
   }
@@ -152,8 +163,9 @@ AppWindow = Ribcage.extend({
     this.$('.js-accomplishment-input').prop('disabled', true);
 
     newAccomplishment.on('error', function () {
-      self.$('.js-accomplishment-input').prop('disabled', false);
-      self.$('.js-accomplishment-input').val(tempSave);
+      self.$('.js-accomplishment-input')
+          .prop('disabled', false)
+          .val(tempSave);
     });
 
     tempSave = this.$('.js-accomplishment-input').val();
@@ -162,7 +174,9 @@ AppWindow = Ribcage.extend({
 
     newAccomplishment.save({}, {
       success: function () {
-        self.$('.js-accomplishment-input').prop('disabled', false);
+        self.$('.js-accomplishment-input')
+            .prop('disabled', false)
+            .val('').focus();
       }
     });
   }
