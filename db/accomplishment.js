@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
         type: String
       , trim: true
       , required: true
-      , match: /^[^\0]{10,500}$/
+      , match: /^[^\0]{30,500}$/
       }
     , user_id: {
         type: String

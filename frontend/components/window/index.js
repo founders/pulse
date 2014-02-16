@@ -13,7 +13,8 @@ var Ribcage = require('ribcage-view')
   , AppWindow
   , io = require('socket.io-client')
   , $ = require('jquery')
-  , socket;
+  , socket
+  , MIN_ACCOMPLISHMENT_LENGTH = 30;
 
 AppWindow = Ribcage.extend({
   template: require('./template.hbs')
@@ -24,6 +25,9 @@ AppWindow = Ribcage.extend({
   , 'click .js-join': 'joinUs'
   , 'submit form': 'noop'
   , 'keyup .js-chat-input': 'handleChatKeyup'
+  , 'keyup .js-accomplishment-input': 'handleAccomplishmentKeyup'
+  , 'focus .js-accomplishment-input': 'handleAccomplishmentFocus'
+  , 'blur .js-accomplishment-input': 'handleAccomplishmentBlur'
   }
 , authenticated: false
 , user: null
@@ -121,6 +125,8 @@ AppWindow = Ribcage.extend({
       }
     });
 
+    this.handleAccomplishmentBlur();
+
     if(this.formStash.accomplishment !== '')
       this.$('.js-accomplishment-input').focus();
     else
@@ -183,6 +189,30 @@ AppWindow = Ribcage.extend({
 , handleChatKeyup: function (e) {
     if (event.keyCode == 13 && !event.shiftKey)
         this.sendComment(e);
+  }
+, handleAccomplishmentKeyup: function () {
+    var str = this.$('.js-accomplishment-input').val()
+      , diff = str == null ? MIN_ACCOMPLISHMENT_LENGTH : MIN_ACCOMPLISHMENT_LENGTH - str.length;
+
+    if(diff > 0) {
+      this.$('.js-accomplishment').text(diff + ' more characters to go..').prop('disabled', true);
+    }
+    else {
+      this.$('.js-accomplishment').text('Accomplish!').prop('disabled', false);
+    }
+  }
+, handleAccomplishmentFocus: function () {
+    this.handleAccomplishmentKeyup();
+    this.$('.js-accomplishment').fadeIn(300);
+  }
+, handleAccomplishmentBlur: function () {
+    var str = this.$('.js-accomplishment-input').val()
+      , diff = str == null ? MIN_ACCOMPLISHMENT_LENGTH : MIN_ACCOMPLISHMENT_LENGTH - str.length;
+
+    if(diff > 0)
+      this.$('.js-accomplishment').hide();
+    else
+      this.$('.js-accomplishment').fadeIn(300);
   }
 , joinUs: function (e) {
     e.preventDefault();
