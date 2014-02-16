@@ -15,7 +15,7 @@ marked.setOptions({
 
 // Disable headings
 renderer.heading = function (text) {
-  return text;
+  return '#' + text;
 };
 
 TimelineItemView = Ribcage.extend({
