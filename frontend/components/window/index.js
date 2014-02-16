@@ -82,11 +82,16 @@ AppWindow = Ribcage.extend({
 
   }
 , scrollDown: function () {
-    var accomplishmentPane = this.$('.js-accomplishment-pane')
-      , commentPane = this.$('.js-chat-pane');
+    var self = this;
 
-    accomplishmentPane.scrollTop(0);
-    commentPane.scrollTop(commentPane[0].scrollHeight);
+    // Defer this, it doesn't work reliably on initial page load ):
+    setTimeout(function () {
+      var accomplishmentPane = self.$('.js-accomplishment-pane')
+        , commentPane = self.$('.js-chat-pane');
+
+      accomplishmentPane.scrollTop(0);
+      commentPane.scrollTop(commentPane[0].scrollHeight);
+    }, 300);
   }
 , beforeRender: function () {
     // Stash form contents!
