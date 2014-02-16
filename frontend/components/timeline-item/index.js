@@ -5,12 +5,18 @@ var Ribcage = require('ribcage-view')
   , TimelineItemView
   , bind = require('lodash.bind')
   , marked = require('marked')
+  , renderer = new marked.Renderer()
   , autolinks = require('autolinks')
   , moment = require('moment');
 
 marked.setOptions({
   sanitize: true
 });
+
+// Disable headings
+renderer.heading = function (text) {
+  return text;
+};
 
 TimelineItemView = Ribcage.extend({
   template: require('./template.hbs')
@@ -43,7 +49,7 @@ TimelineItemView = Ribcage.extend({
     else
       context.shortDate = dateInMoment.format('MM/DD h:mm a');
 
-    context.text = marked(autolinks(context.text, 'markdown'));
+    context.text = marked(autolinks(context.text, 'markdown'), {renderer: renderer});
 
     context.netId = this.model.get('user').email.split('@')[0];
 
