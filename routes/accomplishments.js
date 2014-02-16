@@ -74,6 +74,7 @@ exports.create = function(req, res, next){
               id: user._id
             , firstname: user.firstname
             , lastname: user.lastname
+            , email: user.email
             };
             delete dat.user_id;
             res.io.broadcast('accomplishment', dat);
