@@ -131,6 +131,8 @@ AppWindow = Ribcage.extend({
       this.$('.js-accomplishment-input').focus();
     else
       this.$('.js-chat-input').focus();
+
+    this.scrollDown();
   }
 , sendComment: function () {
     var self = this
