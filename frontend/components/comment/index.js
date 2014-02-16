@@ -1,65 +1,13 @@
 /**
-* Holds a single comment
+* Holds a single accomplishment
 */
-var Ribcage = require('ribcage-view')
-  , CommentView
-  , bind = require('lodash.bind')
-  , marked = require('marked')
-  , autolinks = require('autolinks')
-  , moment = require('moment');
+var TimelineItem = require('../timeline-item')
+  , CommentView;
 
-CommentView = Ribcage.extend({
-  template: require('./template.hbs')
-, className: 'pulse-comment'
-, loadingComments: false
-, intervalHandle: null
-, events: {
-    'mouseover .signature-left' :   'loadRealTimeComment',
-    'mouseleave .signature-left':   'loadRelativeTimeComment'
-  }
-
-, afterInit: function (opts) {
-    if(!opts || !opts.model)
-      throw new Error('This view must be initialized with an Comment model');
-
-    this.comment = opts.model;
-  }
-, beforeRender: function() {
-    if (this.intervalHandle)
-      clearInterval(this.intervalHandle);
-  }
-, context: function () {
-  var comment = this.comment.toJSON();
-  var dateInMoment = moment(this.comment.get('updated'));
-  comment.relativeDate = dateInMoment.fromNow();
-  comment.fullDate = dateInMoment.format('ddd. MMM DDDo YYYY, h:mm:ss a');
-
-  if (dateInMoment.year() != moment().year())
-    comment.shortDate = dateInMoment.format('MM/DD/YY h:mm a');
-  else
-    comment.shortDate = dateInMoment.format('MM/DD h:mm a');
-
-  comment.text = marked(autolinks(comment.text, 'markdown'));
-  return comment;
-  }
-, afterRender: function() {
-    this.intervalHandle = setInterval(bind(this.updateDates, this), 60000);
-  }
-, beforeClose: function() {
-    if (this.intervalHandle)
-      clearInterval(this.intervalHandle);
-  }
-, loadRealTimeComment: function() {
-    this.$('.signature-relative-date').hide();
-    this.$('.signature-real-hidden-date').show();
-  }
-, loadRelativeTimeComment: function() {
-    this.$('.signature-relative-date').show();
-    this.$('.signature-real-hidden-date').hide();
-  }
-, updateDates: function() {
-    this.$('.js-update-relative-date').text(moment(this.comment.get('updated')).fromNow());
-  }
+CommentView = TimelineItem.extend({
+  className: 'pulse-timeline-item pulse-comment'
+  // Disable rollover for comments
+, events: {}
 });
 
 module.exports = CommentView;

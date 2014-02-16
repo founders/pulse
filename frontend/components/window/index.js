@@ -12,18 +12,18 @@ var Ribcage = require('ribcage-view')
   , CommentView = require('../comment')
   , AppWindow
   , io = require('socket.io-client')
-  , $ = require('jquery-browserify')
+  , $ = require('jquery')
   , socket;
 
 AppWindow = Ribcage.extend({
   template: require('./template.hbs')
 , className: 'pulse-app-window'
 , events: {
-    'click .js-comment': 'sendComment'
-  , 'click .js-accomplish': 'sendAccomplishment'
+    'click .js-chat': 'sendComment'
+  , 'click .js-accomplishment': 'sendAccomplishment'
   , 'click .js-join': 'joinUs'
-  , 'keyup .js-entry-input': 'handleFormKeyup'
   , 'submit form': 'noop'
+  , 'keyup .js-chat-input': 'handleChatKeyup'
   }
 , authenticated: false
 , user: null
@@ -32,6 +32,8 @@ AppWindow = Ribcage.extend({
 
     if(!socket)
       socket = io.connect('/');
+
+    this.resetFormStash();
 
     this.timeline = new Timeline([]);
     this.timeline.on('add remove change', function () {
@@ -69,88 +71,104 @@ AppWindow = Ribcage.extend({
       }
     });
   }
+, resetFormStash: function () {
+    this.$('.js-chat-input').val('');
+    this.$('.js-accomplishment-input').val('');
+
+    this.formStash = {
+      accomplishment: ''
+    , chat: ''
+    };
+
+  }
 , scrollDown: function () {
     var accomplishmentPane = this.$('.js-accomplishment-pane')
-      , commentPane = this.$('.js-comment-pane');
+      , commentPane = this.$('.js-chat-pane');
 
-    accomplishmentPane.scrollTop(accomplishmentPane[0].scrollHeight);
+    accomplishmentPane.scrollTop(0);
     commentPane.scrollTop(commentPane[0].scrollHeight);
+  }
+, beforeRender: function () {
+    // Stash form contents!
+    this.formStash = {
+      accomplishment: this.$('.js-accomplishment-input').val()
+    , chat: this.$('.js-chat-input').val()
+    };
   }
 , afterRender: function () {
     var self = this
       , accomplishmentPane = this.$('.js-accomplishment-pane')
-      , commentPane = this.$('.js-comment-pane');
-
-    this.$('.invalid-hint').hide();
-    this.$('.incomplete-hint').hide();
+      , commentPane = this.$('.js-chat-pane');
 
     this.timeline.each(function (model) {
       if(model._name === 'Accomplishment')
-        self.appendSubview(new AccomplishmentView({model: model}), accomplishmentPane);
+        self.prependSubview(new AccomplishmentView({model: model}), accomplishmentPane);
       else {
-        self.appendSubview(new CommentView({model: model}), accomplishmentPane);
         self.appendSubview(new CommentView({model: model}), commentPane);
       }
     });
 
-    this.$('.js-entry-input').focus();
+    if(this.formStash.accomplishment !== '')
+      this.$('.js-accomplishment-input').focus();
+    else
+      this.$('.js-chat-input').focus();
   }
 , sendComment: function () {
     var self = this
       , newComment = new Comment({
-          text: this.$('.js-entry-input').val()
-        });
+          text: this.$('.js-chat-input').val()
+        })
+      , tempSave;
+
+    this.$('.js-chat-input').prop('disabled', true);
 
     newComment.on('error', function () {
-      self.$('.enter-hint').hide();
-      self.$('.invalid-hint').show();
-      self.$('.incomplete-hint').hide();
-
-      self.$('.js-entry-input').addClass('invalid').focus();
+      self.$('.js-chat-input').prop('disabled', false);
+      self.$('.js-chat-input').val(tempSave);
     });
+
+    tempSave = this.$('.js-chat-input').val();
+
+    this.resetFormStash();
 
     newComment.save({}, {
       success: function () {
-        self.$('.enter-hint').show();
-        self.$('.invalid-hint').hide();
-        self.$('.incomplete-hint').hide();
-        self.$('.js-entry-input').removeClass('invalid').val('').focus();
+        self.$('.js-chat-input').prop('disabled', false);
       }
     });
   }
 , sendAccomplishment: function () {
     var self = this
       , newAccomplishment = new Accomplishment({
-          text: this.$('.js-entry-input').val()
-        });
+          text: this.$('.js-accomplishment-input').val()
+        })
+      , tempSave;
+
+    this.$('.js-accomplishment-input').prop('disabled', true);
 
     newAccomplishment.on('error', function () {
-      self.$('.enter-hint').hide();
-      self.$('.invalid-hint').show();
-      self.$('.incomplete-hint').hide();
-
-      self.$('.js-entry-input').addClass('invalid').focus();
+      self.$('.js-accomplishment-input').prop('disabled', false);
+      self.$('.js-accomplishment-input').val(tempSave);
     });
+
+    tempSave = this.$('.js-accomplishment-input').val();
+
+    this.resetFormStash();
 
     newAccomplishment.save({}, {
       success: function () {
-        self.$('.enter-hint').show();
-        self.$('.invalid-hint').hide();
-        self.$('.incomplete-hint').hide();
-        self.$('.js-entry-input').removeClass('invalid').val('').focus();
+        self.$('.js-accomplishment-input').prop('disabled', false);
       }
     });
   }
-, joinUs: function () {
-    App.navigate('/authenticate', {trigger: true});
-  }
-, handleFormKeyup: function (e) {
-    if (event.keyCode == 13) {
-      if(event.shiftKey)
-        this.sendAccomplishment(e);
-      else
+, handleChatKeyup: function (e) {
+    if (event.keyCode == 13 && !event.shiftKey)
         this.sendComment(e);
-    }
+  }
+, joinUs: function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    App.navigate('/authenticate', {trigger: true});
   }
 , beforeClose: function () {
     this.timeline.off();
@@ -168,6 +186,7 @@ AppWindow = Ribcage.extend({
     return {
       authenticated: this.authenticated
     , user: this.user ? this.user.toJSON() : {}
+    , formStash: this.formStash
     };
   }
 });

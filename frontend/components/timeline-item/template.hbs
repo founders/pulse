@@ -1,0 +1,17 @@
+<div class="heading-wrap">
+  <div class="heading-username">
+    {{user.firstname}} {{user.lastname}}
+  </div>
+  <div class="heading-time">
+    <div class="heading-relative-date js-relative-date">
+     {{ relativeDate }}
+    </div>
+    <div class ="heading-real-hidden-date">
+      <span class="js-long-date">{{ fullDate }}</span>
+      <span class="js-short-date"> {{ shortDate }}</span>
+    </div>
+  </div>
+</div>
+<div class="text-holder">
+  {{{text}}}
+</div>

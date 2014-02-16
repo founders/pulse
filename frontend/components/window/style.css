@@ -1,260 +1,51 @@
-:root {
-  var-entry-pane-height: 80px;
-  var-entry-form-height: 50px;
-}
-
-.site-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
-.site-header .header-left,
-.site-header .header-right {
-  position: absolute;
-  top: 0;
-  left: 30%;
-  right: 30%;
-  text-align: center;
-}
-
-.site-header .header-left {
-  background-color: #ff8000;
-}
-
-.site-header .header-right {
-  left: 70%;
-  right: 0;
-}
-
-.site-header h2 {
-  margin: 10px;
-}
-
-.header-left h2 {
-  color: #FFF;
-}
-
-.js-info-pane {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 70%;
-  bottom: 80px;
-  background-color: #000;
-}
-
-.js-info-pane h1 {
-  font-family: Helvetica, sans-serif;
-  color: #FFF;
-  font-size: 4em;
-  font-weight: lighter;
-  margin: 10px;
-}
-
-.js-info-pane p {
-  color: #FFF;
-  padding: 10px;
-  font-weight: lighter;
-}
-
-.js-accomplishment-pane {
-  position: absolute;
-  top: 50px;
-  left: 30%;
-  right: 30%;
-  bottom: 80px;
-  z-index: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  background-color: #ff8000;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Only show the comments in the left pane when in responsive mode */
-.js-accomplishment-pane .pulse-comment {
-  visibility: hidden;
+/* That header is just for semantics */
+h1 {
   display: none;
 }
 
-.js-comment-pane {
-  position: absolute;
-  top: 50px;
-  left: 70%;
-  right: 0;
-  bottom: 80px;
-  z-index: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
+/**
+* Holds the three panes
+*/
+.pulse-app-window {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: row;
 }
 
-.js-main-pane h2,
-.js-mainpane h3,
-.js-main-pane h4{
+/* This are the gray centered headings */
+.pulse-app-window h2 {
+  font-family: 'bebasregular', Helvetica, sans-serif;
+  color: var(pulse-gray);
   text-align: center;
 }
 
-.js-main-pane a{
-  color: black;
-  text-decoration: none;
+form {
+  padding: 0 10px;
 }
 
-.js-main-pane a:hover{
-  color:#ff8000;
-}
-
-.js-entry-pane,
-.js-register-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 80px;
-  padding: 0 5px;
-  z-index: 1;
-}
-
-.js-register-overlay {
-  z-index: 2;
-  background-color: #000;
-}
-
-.js-register-overlay h2 {
-  color: #FFF;
-  float: left;
-  margin: 25px 0 0 10px;
-}
-
-.js-register-overlay form {
-  display: block;
-  float: right;
-  margin: 15px 10px 0 0;
-}
-
-.js-entry-pane form {
-  bottom: var(entry-form-height);
-}
-
-.js-entry-pane .entry-input-wrap {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  right: 236px;
-}
-
-.entry-input-wrap .entry-input {
+form textarea {
   width: 100%;
+
+  /* Needed otherwise it overflows! */
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
-.js-entry-pane .js-comment,
-.js-entry-pane .js-accomplish {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 136px;
-}
-.js-entry-pane .js-comment {
-  width: 84px;
-  right: 140px;
-}
-
-.js-entry-pane .enter-hint,
-.js-entry-pane .incomplete-hint,
-.js-entry-pane .invalid-hint {
-  position: absolute;
-  color: #333;
-  font-size: .8em;
-  bottom: 2px;
-  height: 20px;
-  line-height: 20px;
-  padding: 0 2px;
+form submit {
+  font-family: 'bebasregular', Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  display: block;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: #FFF;
+  background-color: var(pulse-lighter-gray);
 }
 
-.js-entry-pane .incomplete-hint,
-.js-entry-pane .invalid-hint {
-  color: #ec514e;
-  font-weight: bold;
-}
-
-.js-entry-pane input.invalid {
-  border: 1px solid #ec514e;
-}
-
-@media(max-width: 700px) {
-  .site-header,
-  .js-info-pane {
-    display: none;
-    visibility: hidden;
-  }
-
-  .js-accomplishment-pane {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 115px;
-    z-index: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-    background-color: transparent;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .js-accomplishment-pane .pulse-accomplishment {
-    background-color: #ff8000;
-  }
-
-  .js-accomplishment-pane .pulse-comment {
-    visibility: visible;
-    display: block;
-  }
-
-  .js-comment-pane {
-    visibility: hidden;
-    display: none;
-  }
-
-  .js-entry-pane,
-  .js-entry-pane form,
-  .js-register-overlay {
-    height: 115px;
-  }
-
-  .js-entry-pane .entry-input-wrap {
-    right: 5px;
-  }
-
-  .js-entry-pane .js-comment,
-  .js-entry-pane .js-accomplish {
-    top: 60px;
-    right: 5px;
-  }
-  .js-entry-pane .js-comment {
-    right: 140px;
-  }
-
-  .js-entry-pane .enter-hint,
-  .js-entry-pane .incomplete-hint,
-  .js-entry-pane .invalid-hint {
-    display: none;
-    visibility: hidden;
-  }
-
-  .js-register-overlay h2 {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 1.3em;
-    line-height: 20px;
-    margin: 0;
-    float: none;
-  }
-
-  .js-register-overlay .js-join {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-  }
-}
+@import "./accomplishment-pane.css";
+@import "./pulse-pane.css";
+@import "./chat-pane.css";

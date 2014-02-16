@@ -1,40 +1,61 @@
-<div class="site-header">
-  <div class="header-left">
+{{! This holds the accomplishment title and form }}
+<section class="accomplishment-header">
+  <section class="accomplishment-title">
     <h2>Accomplishments</h2>
-  </div>
-  <div class="header-right">
-    <h2>Chat</h2>
-  </div>
-</div>
-<div class="js-info-pane">
-  <h1>Pulse</h1>
+  </section>
+  {{#if authenticated}}
+  <section class="accomplishment-form">
+    <form action="#">
+      <div class="entry-input-wrap">
+        <textarea class="js-accomplishment-input entry-input">{{ formStash.accomplishment }}</textarea>
+      </div>
+      <submit class="js-accomplishment">Accomplish!</submit>
+    </form>
+  </section>
+  {{else}}
+  <section class="login-prompt">
+    <div class="prompt-padding">
+      <h3>Hello, Stranger!</h3>
+      <p>
+        <a class="js-join" href="#">Sign in now</a> and get things done with us.
+      </p>
+    </div>
+  </section>
+  {{/if}}
+</section>
+
+{{! This holds the stream of accomplishments}}
+<section class="js-accomplishment-pane accomplishment-pane">
+</section>
+
+<nav class="pulse-pane">
+  <h2>Recently Active</h2>
+  <img src="/img/Pulse-Logo.png" />
   <p>
     The heartbeat of the<br />
     entrepreneurship community<br />
     @ Illinois.
   </p>
-</div>
-<div class="js-accomplishment-pane">
-</div>
-<div class="js-comment-pane">
-</div>
-<div class="js-entry-pane">
+</nav>
+
+{{! The chat heading is pinned to the top }}
+<section class="chat-heading">
+  <h2>Chat</h2>
+</section>
+
+{{! The chat stream streches in the middle }}
+<section class="js-chat-pane chat-body">
+
+</section>
+
+{{#if authenticated}}
+{{! The new chat form is pinned to the bottom }}
+<section class="chat-footer">
   <form action="#">
     <div class="entry-input-wrap">
-      <input type="text" class="topcoat-text-input js-entry-input entry-input" value="" placeholder="Share something!">
+      <textarea class="js-chat-input entry-input">{{ formStash.chat }}</textarea>
     </div>
-    <submit class="topcoat-button js-comment" >Chat</submit>
-    <submit class="topcoat-button--cta js-accomplish">Accomplish</submit>
+    <submit class="js-chat">Send</submit>
   </form>
-  <div class="enter-hint">Press "Enter" to chat, or "Shift+Enter" to share an accomplishment</div>
-  <div class="invalid-hint">Enter at least 10 characters, with no newlines</div>
-  <div class="incomplete-hint">Comments aren't done yet. Hit "Shift+Enter" to share an accomplishment.</div>
-</div>
-{{#unless authenticated}}
-<div class="js-register-overlay">
-  <h2>Get Things Done With Us!</h2>
-  <form action="#">
-    <submit class="topcoat-button js-join" >Sign In</submit>
-  </form>
-</div>
-{{/unless}}
+</section>
+{{/if}}

@@ -1,0 +1,62 @@
+.accomplishment-header {
+  position: absolute;
+  top: 0;
+  left: 30%;
+  right: 30%;
+  height: 210px;
+  z-index: 0;
+}
+
+.accomplishment-pane {
+  position: absolute;
+  top: 210px;
+  left: 30%;
+  right: 30%;
+  bottom: 0;
+  z-index: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.accomplishment-form {
+  height: 150px;
+}
+
+.accomplishment-form textarea {
+  height: 90px;
+}
+
+.login-prompt {
+  height: 210px;
+}
+
+.login-prompt h3 {
+  font-weight: lighter;
+}
+
+.prompt-padding {
+  margin: 10px;
+  padding: 10px;
+  color: #FFF;
+  background-color: var(pulse-gray);
+}
+
+.login-prompt a {
+  color: var(pulse-orange);
+  font-weight: bolder;
+  text-decoration: none;
+}
+
+.login-prompt a:hover,
+.login-prompt a:active {
+  text-decoration: underline;
+}
+
+.accomplishment-body {
+  -webkit-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  overflow-y: auto;
+  min-height: 0px;
+}

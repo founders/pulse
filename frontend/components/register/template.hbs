@@ -5,24 +5,24 @@
     <div class="js-login-form pulse-padded">
       <form action="#">
         <label for="password">Password</label>
-        <input type="password" class="topcoat-text-input js-password" name="password" value="{{details.password}}" />
+        <input type="password" class="text-input js-password" name="password" value="{{details.password}}" />
 
-        <submit class="topcoat-button--cta js-login">Sign In</submit>
+        <submit class="js-login">Sign In</submit>
       </form>
     </div>
   {{else}}
     <div class="js-reg-form pulse-padded">
       <form action="#">
         <label for="password">Password</label>
-        <input type="password" class="topcoat-text-input js-password" name="password" value="{{details.password}}" />
+        <input type="password" class="text-input js-password" name="password" value="{{details.password}}" />
 
         <label for="firstname">First Name</label>
-        <input type="text" class="topcoat-text-input js-firstname" name="firstname" value="{{details.firstname}}" />
+        <input type="text" class="text-input js-firstname" name="firstname" value="{{details.firstname}}" />
 
         <label for="lastname">Last Name</label>
-        <input type="text" class="topcoat-text-input js-lastname" name="lastname" value="{{details.lastname}}" />
+        <input type="text" class="text-input js-lastname" name="lastname" value="{{details.lastname}}" />
 
-        <submit class="topcoat-button--cta js-reg">Join Us</submit>
+        <submit class="js-reg">Join Us</submit>
       </form>
     </div>
   {{/if}}
@@ -31,11 +31,11 @@
   <form action="#">
     <label for="netid">NetID</label>
     {{#if netidError}}
-      <input type="text" class="topcoat-text-input invalid js-netid" placeholder="jdoe6" name="netid" />
+      <input type="text" class="text-input invalid js-netid" placeholder="jdoe6" name="netid" />
     {{else}}
-      <input type="text" class="topcoat-text-input js-netid" placeholder="jdoe6" name="netid" />
+      <input type="text" class="text-input js-netid" placeholder="jdoe6" name="netid" />
     {{/if}}
-    <submit class="topcoat-button--cta js-netid-lookup">Lookup</submit>
+    <submit class="js-netid-lookup">Lookup</submit>
   </form>
 </div>
 {{/if}}

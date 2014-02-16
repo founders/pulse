@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
         type: String
       , trim: true
       , required: true
-      , match: /^.{10,500}$/
+      , match: /^[^\0]{10,500}$/
       }
     , user_id: {
         type: String
@@ -12,6 +12,14 @@ var mongoose = require('mongoose')
       }
     , updated: { type: Date, default: Date.now }
     })
-  , Comment = mongoose.model('Comment', schema);
+  , Comment;
+
+// Remove consecutive newlines
+schema.pre('save', function (next) {
+  this.text = this.text.replace(/[\n]+/, '\n');
+  next();
+});
+
+Comment = mongoose.model('Comment', schema);
 
 module.exports = Comment;

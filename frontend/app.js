@@ -1,7 +1,7 @@
 /* global alert */
 
 var Backbone = require('backbone')
-  , $ = require('jquery-browserify')
+  , $ = require('jquery')
   , bind = require('lodash.bind')
   , app;
 

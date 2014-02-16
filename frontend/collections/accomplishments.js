@@ -11,7 +11,7 @@ Accomplishments = Backbone.Collection.extend({
     return res;
   }
 , comparator: function (a, b) {
-    return a.get('updated').getTime() - b.get('updated').getTime();
+    return b.get('updated').getTime() - a.get('updated').getTime();
   }
 });
 

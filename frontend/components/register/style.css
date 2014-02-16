@@ -1,3 +1,11 @@
+.top-bar-holder .top-bar {
+  background-color: var(pulse-top-bar-gray);
+}
+
+.top-bar-holder .top-bar .left-button-target {
+  padding: 10px;
+}
+
 .js-reg-form submit,
 .js-netid-form submit,
 .js-login-form submit,
@@ -19,4 +27,22 @@
 .js-netid-form input.invalid,
 .js-reg-form input.invalid {
   border: 1px solid #ec514e;
+}
+
+.pulse-auth-panel label {
+  color: #FFF;
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.pulse-auth-panel .text-input {
+  width: 100%;
+  font-size: 18px;
+  line-height: 28px;
+  padding: 2px;
+
+  /* Needed otherwise it overflows! */
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }

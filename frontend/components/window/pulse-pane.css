@@ -1,0 +1,35 @@
+.pulse-pane {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 70%;
+  bottom: 0;
+  background-color: #000;
+  text-align: center;
+}
+
+/*
+* The logo image is 184 pixels wide
+* but the pane is 220 pixels wide
+* so 18px on each side centers the image
+* and 20px on the top for some space
+*/
+.pulse-pane img {
+  margin: 20px auto 0 auto;
+}
+
+/**
+* This is the text under the logo
+*/
+.pulse-pane p {
+  color: var(pulse-gray);
+  font-weight: bolder;
+  padding: 18px;
+}
+
+/**
+* The header in the pulse pane is just for semantics
+*/
+.pulse-pane h2 {
+  display: none;
+}

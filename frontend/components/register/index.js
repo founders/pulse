@@ -4,7 +4,7 @@
 * The main application window
 */
 var Ribcage = require('ribcage-view')
-  , $ = require('jquery-browserify')
+  , $ = require('jquery')
   , User = require('../../models/user')
   , Topbar = require('ribcage-top-bar')
   , BackButton = require('ribcage-back-button')
@@ -31,6 +31,7 @@ AuthPanel = Ribcage.extend({
       });
 
     topBar.setLeftButton(back);
+    topBar.setTitle('Pulse');
     this.appendSubview(topBar, this.$('.top-bar-holder'));
 
     this.$('.js-netid').focus();
