@@ -9,11 +9,13 @@
 }
 
 .pulse-timeline-item .heading-username,
-.pulse-timeline-item .heading-time {
+.pulse-timeline-item .heading-time,
+.pulse-timeline-item .heading-netid-hidden {
   display: inline;
 }
 
-.pulse-timeline-item .heading-username {
+.pulse-timeline-item .heading-username,
+.pulse-timeline-item .heading-netid-hidden {
   float: left;
 }
 
@@ -22,7 +24,8 @@
   color: var(pulse-light-gray);
 }
 
-.pulse-timeline-item .heading-real-hidden-date {
+.pulse-timeline-item .heading-real-hidden-date,
+.pulse-timeline-item .heading-netid-hidden {
   display: none;
 }
 

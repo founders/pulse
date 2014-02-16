@@ -7,7 +7,10 @@ var TimelineItem = require('../timeline-item')
 CommentView = TimelineItem.extend({
   className: 'pulse-timeline-item pulse-comment'
   // Disable rollover for comments
-, events: {}
+, events: {
+    'mouseover .heading-username': 'loadNetId'
+  , 'mouseleave .heading-wrap': 'loadFullName'
+  }
 });
 
 module.exports = CommentView;

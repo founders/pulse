@@ -16,8 +16,10 @@ TimelineItemView = Ribcage.extend({
   template: require('./template.hbs')
 , className: 'timeline-item'
 , events: {
-    'mouseover .heading-time'   :   'loadRealTimeHeader',
-    'mouseleave .heading-time'  :   'loadRelativeTimeHeader'
+    'mouseover .heading-time': 'loadRealTimeHeader'
+  , 'mouseleave .heading-time': 'loadRelativeTimeHeader'
+  , 'mouseover .heading-username': 'loadNetId'
+  , 'mouseleave .heading-wrap': 'loadFullName'
   }
 , intervalHandle: null
 , afterInit: function (opts) {
@@ -43,6 +45,8 @@ TimelineItemView = Ribcage.extend({
 
     context.text = marked(autolinks(context.text, 'markdown'));
 
+    context.netId = this.model.get('user').email.split('@')[0];
+
     return context;
   }
 , beforeRender: function() {
@@ -64,6 +68,15 @@ TimelineItemView = Ribcage.extend({
     this.$('.heading-relative-date').show();
     this.$('.heading-real-hidden-date').hide();
   }
+, loadNetId: function() {
+    this.$('.heading-username').hide();
+    this.$('.heading-netid-hidden').show();
+  }
+, loadFullName: function() {
+    this.$('.heading-username').show();
+    this.$('.heading-netid-hidden').hide();
+  }
+
 });
 
 module.exports = TimelineItemView;
