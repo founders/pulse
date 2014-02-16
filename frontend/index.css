@@ -19,6 +19,17 @@ body {
   background-color: var(pulse-dark-gray); /* The accomplishment/chat panes get this color */
 }
 
+a {
+  color: var(pulse-orange);
+  font-weight: bolder;
+  text-decoration: none;
+}
+
+a:hover,
+a:active {
+  text-decoration: underline;
+}
+
 #app {
   width: 100%;
   height: 100%;

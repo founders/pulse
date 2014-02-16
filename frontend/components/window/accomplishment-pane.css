@@ -42,17 +42,6 @@
   background-color: var(pulse-gray);
 }
 
-.login-prompt a {
-  color: var(pulse-orange);
-  font-weight: bolder;
-  text-decoration: none;
-}
-
-.login-prompt a:hover,
-.login-prompt a:active {
-  text-decoration: underline;
-}
-
 .accomplishment-body {
   -webkit-flex: 1;
   -moz-flex: 1;
