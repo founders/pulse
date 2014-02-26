@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -14,7 +13,7 @@ var express = require('express')
   , reset = require('./routes/reset')
   , socketio = require('./middleware/socketio')
   , errorHandler = require('./middleware/error')
-  , canon = require('canonical-host')('http://pulse.founders.is')
+  , canon = require('canonical-host')('http://pulse.illinois.edu')
   , app = express();
 
 app.set('port', process.env.PORT || 4000);
