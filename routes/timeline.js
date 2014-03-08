@@ -14,7 +14,7 @@ exports.list = function(req, res, next) {
       Accomplishment
         .find({})
         .select('text user_id updated')
-        .sort('updated')
+        .sort('-updated')
         .limit(20)
         .exec(function (err, data) {
           if(err)
