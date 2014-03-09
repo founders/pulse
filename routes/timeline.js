@@ -33,7 +33,7 @@ exports.list = function(req, res, next) {
       }
 
       Comment
-      .find({updated: {$gte: accomplishments[0].updated}})
+      .find({updated: {$gte: accomplishments[accomplishments.length - 1].updated}})
       .exec(function (err, data) {
           if(err)
             return done(err);
