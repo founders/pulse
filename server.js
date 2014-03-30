@@ -1,4 +1,7 @@
-require('newrelic');
+if(process.env.NODE_ENV == 'production') {
+  require('newrelic');
+}
+
 var http = require('http')
   , path = require('path')
   , fs = require('fs')
