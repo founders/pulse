@@ -46,3 +46,11 @@
 .pulse-timeline-item .text-holder {
   font-weight: lighter;
 }
+
+.pulse-timeline-item .email {
+  float:right;
+}
+
+.pulse-timeline-item .email-button {
+  background-color: black;
+}

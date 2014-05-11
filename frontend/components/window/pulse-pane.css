@@ -22,7 +22,8 @@
 * This is the text under the logo
 */
 .pulse-pane p {
-  color: var(pulse-gray);
+  /*color: var(pulse-gray);*/
+  color: white;
   font-weight: bolder;
   padding: 18px;
 }
@@ -32,4 +33,12 @@
 */
 .pulse-pane h2 {
   display: none;
+}
+
+.pulse-pane h3 {
+  color:white;
+}
+.pulse-pane .user-count {
+  color:white;
+  size: 20px;
 }
