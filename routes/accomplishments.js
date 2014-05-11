@@ -2,7 +2,8 @@ var Accomplishment = require('../db').models.Accomplishment
   , Hashtag = require('../db').models.Hashtag
   , User = require('../db').models.User
   , loadUsers = require('../helpers/loadUsers')
-  , map = require('lodash').map;
+  , map = require('lodash').map
+  , nodemailer = require('nodemailer');
 
 exports.list = function(req, res, next){
   Accomplishment
@@ -98,5 +99,33 @@ exports.create = function(req, res, next){
           });
         }
       });
-    });
+    });  
+};
+
+exports.mail = function(req, res){
+  var smtpTransport = nodemailer.createTransport("SMTP", {
+      service: "Gmail",
+      auth:{
+          user: "team@founders.illinois.edu",
+          pass: process.env.TEAM_PASSWORD
+      }
+  });
+
+  var mailOptions = {
+    from: "Founders Team <team@founders.illinois.edu>", // sender address
+    to: "jay.bensal@gmail.com", // list of receivers
+    subject: "Reminder from Pulse!", // Subject line
+    text: "I noticed that you haven't worked on your project in a while.. you should do that!", // plaintext body
+  };
+
+  console.log("options set");
+  smtpTransport.sendMail(mailOptions, function(error, response){
+    if(error){
+        console.log(error);
+    }else{
+        console.log("Message sent: " + response.message);
+    }
+    // if you don't want to use this transport object anymore, uncomment following line
+    //smtpTransport.close(); // shut down the connection pool, no more messages
+  });
 };
