@@ -3,6 +3,7 @@
 */
 var Ribcage = require('ribcage-view')
   , TimelineItemView
+  , jquery = require('jquery')
   , bind = require('lodash.bind')
   , marked = require('marked')
   , renderer = new marked.Renderer()
@@ -26,6 +27,7 @@ TimelineItemView = Ribcage.extend({
   , 'mouseleave .heading-time': 'loadRelativeTimeHeader'
   , 'mouseover .heading-username': 'loadNetId'
   , 'mouseleave .heading-wrap': 'loadFullName'
+  , 'click .email-button': 'sendTaunt'
   }
 , intervalHandle: null
 , afterInit: function (opts) {
@@ -82,7 +84,10 @@ TimelineItemView = Ribcage.extend({
     this.$('.heading-username').show();
     this.$('.heading-netid-hidden').hide();
   }
-
+, sendTaunt: function(){
+    //console.log(this.model.get('user').email);
+    jquery.post("./taunt");
+  }
 });
 
 module.exports = TimelineItemView;

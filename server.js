@@ -18,6 +18,7 @@ var http = require('http')
   , pool = []
   , broadcast;
 
+var socketCount = 0;
 // Broadcasts something to all connected clients
 broadcast = function (evt, data) {
   _.each(pool, function (socket) {
@@ -32,9 +33,14 @@ socketioMiddleware.references = {
 
 io.sockets.on('connection', function (socket) {
   pool.push(socket);
+  socketCount +=1;
+  // broadcast socket count
+  broadcast('news', socketCount);
 
   socket.on('disconnect', function () {
     _.remove(pool, socket);
+    socketCount -=1;
+    broadcast('news', socketCount);
   });
 });
 

@@ -16,6 +16,13 @@ var Ribcage = require('ribcage-view')
   , socket
   , MIN_ACCOMPLISHMENT_LENGTH = 30;
 
+// set global variable for socket
+var socketCount = 0;
+
+var updateButton = function(number){
+  document.querySelector('.pulse-pane h3.user-count').innerHTML = number;
+}
+
 AppWindow = Ribcage.extend({
   template: require('./template.hbs')
 , className: 'pulse-app-window'
@@ -46,6 +53,13 @@ AppWindow = Ribcage.extend({
       success: function () {
         self.render();
       }
+    });
+
+    socket.on('news', function (data){
+      console.log('received news!');
+      console.log('data ' + data);
+      socketCount = data;
+      updateButton(data);
     });
 
     socket.on('accomplishment', function (data) {
