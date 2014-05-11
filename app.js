@@ -14,6 +14,7 @@ var express = require('express')
   , socketio = require('./middleware/socketio')
   , errorHandler = require('./middleware/error')
   , canon = require('canonical-host')('http://pulse.illinois.edu')
+  , nodemailer = require('nodemailer')
   , app = express();
 
 app.set('port', process.env.PORT || 4000);
@@ -42,23 +43,30 @@ app.post('/logout', users.unauth);
 
 // Tells you who you are logged in as
 app.get('/whoami', users.whoami);
+
 // Tells you things about a person who may/may not be registered
 app.get('/whois/:netid', users.whois);
 
 // Show all registered users
 app.get('/users', users.list);
+
 // Register a new user
 app.post('/users', users.create);
+
 // Tells you things about a user
 app.get('/users/:id', users.view);
 
 // Show all accomplishments
 app.get('/accomplishments', accomplishments.list);
+
 // Create a new accomplishment
 app.post('/accomplishments', accomplishments.create);
 
+app.post('/taunt', accomplishments.mail);
+
 // Show comments after an accomplishment
 app.get('/comments', comments.list);
+
 // Create a comment
 app.post('/comments', comments.create);
 
