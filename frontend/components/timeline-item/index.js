@@ -87,6 +87,7 @@ TimelineItemView = Ribcage.extend({
 , sendTaunt: function(){
     //console.log(this.model.get('user').email);
     jquery.post("./taunt");
+    alert("your mail was sent successfully!");
   }
 });
 

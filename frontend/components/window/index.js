@@ -56,8 +56,6 @@ AppWindow = Ribcage.extend({
     });
 
     socket.on('news', function (data){
-      console.log('received news!');
-      console.log('data ' + data);
       socketCount = data;
       updateButton(data);
     });
