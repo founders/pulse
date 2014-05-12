@@ -118,7 +118,6 @@ exports.mail = function(req, res){
     text: "I noticed that you haven't worked on your project in a while.. you should do that!", // plaintext body
   };
 
-  console.log("options set");
   smtpTransport.sendMail(mailOptions, function(error, response){
     if(error){
         console.log(error);
