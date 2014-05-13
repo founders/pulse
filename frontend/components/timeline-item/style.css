@@ -53,4 +53,10 @@
 
 .pulse-timeline-item .email-button {
   background-color: black;
+  outline: 0;
+  border: 0;
+  padding: 10px 15px;
+  border-radius: 5px;
+  line-height: 1;
+  margin:10px 0 0;
 }
