@@ -113,7 +113,7 @@ exports.mail = function(req, res){
 
   var mailOptions = {
     from: "Founders Team <team@founders.illinois.edu>", // sender address
-    to: "jay.bensal@gmail.com", // list of receivers
+    to: req.body, // list of receivers
     subject: "Reminder from Pulse!", // Subject line
     text: "I noticed that you haven't worked on your project in a while.. you should do that!", // plaintext body
   };
